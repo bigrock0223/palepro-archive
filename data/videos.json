@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-18T13:53:22.607Z",
+ "updatedAt": "2026-11-18T16:06:12.215Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134167,6 +134167,17 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/1d2hPLxg42c/mqdefault.jpg",
    "fetchedAt": "2026-11-18T12:25:21.666Z"
+  },
+  "ifDGbjVSu_Q": {
+   "id": "ifDGbjVSu_Q",
+   "channel": "kaname",
+   "title": "【Satelital #2】ﾁﾙであれ、宇宙。【パレプロ/常磐カナメ】",
+   "publishedAt": "2026-11-18T15:49:14Z",
+   "startAt": "2026-11-18T12:01:20Z",
+   "durationSec": 10067,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/ifDGbjVSu_Q/mqdefault.jpg",
+   "fetchedAt": "2026-11-18T16:06:08.554Z"
   }
  }
 }
