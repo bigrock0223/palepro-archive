@@ -1,0 +1,14 @@
+{
+  "_説明": "監視するチャンネル一覧。color はイメージカラー、gradient を書くと色の代わりにグラデーション（虹色など）で表示します。handle（@から始まるID）か channelId のどちらかを入れてください。handle だけでも取得スクリプトが channelId を自動で調べます。メンバー構成は最新の公式情報で確認してください。",
+  "channels": [
+    { "key": "official", "name": "Palette Project 公式", "color": "#9a72d6", "gradient": "linear-gradient(135deg, #e86a6a, #f39a4c, #f0c34a, #2f9e5a, #6ec8f0, #5a8fe0, #9a72d6)", "handle": "@paletteproject", "channelId": "" },
+    { "key": "kotoha",   "name": "藤宮コトハ",   "color": "#f2a7c3", "handle": "@fujimiyakotoha", "channelId": "" },
+    { "key": "mahalo",   "name": "夏渚まはろ",   "color": "#88d8c0", "handle": "@nanagisamahalo", "channelId": "" },
+    { "key": "kaname",   "name": "常磐カナメ",   "color": "#2f9e5a", "handle": "", "channelId": "" },
+    { "key": "rona",     "name": "七海ロナ",     "color": "#5a8fe0", "handle": "", "channelId": "" },
+    { "key": "clara",    "name": "暁月クララ",   "color": "#f39a4c", "handle": "", "channelId": "" },
+    { "key": "kyouka",   "name": "江波キョウカ", "color": "#e05555", "handle": "", "channelId": "" },
+    { "key": "ayumu",    "name": "鬼多見アユム", "color": "#9a72d6", "handle": "", "channelId": "" },
+    { "key": "hanon",    "name": "香鳴ハノン",   "color": "#6ec8f0", "handle": "", "channelId": "" }
+  ]
+}

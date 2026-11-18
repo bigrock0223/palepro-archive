@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>パレプロ アーカイブ検索（非公式）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="palette-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <h1>パレプロ アーカイブ検索</h1>
+      <span class="unofficial">非公式ファンサイト</span>
+    </div>
+    <p class="updated" id="updated"></p>
+  </header>
+
+  <main class="layout">
+    <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filters">絞り込み条件</button>
+    <aside class="filters" id="filters">
+      <div class="field">
+        <label for="q">キーワード</label>
+        <input id="q" type="search" placeholder="タイトルで検索（スペースで複数語）">
+      </div>
+
+      <div class="field">
+        <span class="label">メンバー</span>
+        <div class="chips" id="members"></div>
+      </div>
+
+      <div class="field">
+        <span class="label">ジャンル
+          <label class="inline"><input type="checkbox" id="genreAnd"> すべて含む</label>
+        </span>
+        <div class="chips" id="genres"></div>
+      </div>
+
+      <div class="field">
+        <span class="label">配信日</span>
+        <div class="row">
+          <input id="from" type="date" aria-label="開始日"> <span>〜</span>
+          <input id="to" type="date" aria-label="終了日">
+        </div>
+        <div class="quick" id="quick">
+          <button type="button" data-range="7">1週間</button>
+          <button type="button" data-range="30">1か月</button>
+          <button type="button" data-range="365">1年</button>
+          <button type="button" data-range="0">指定なし</button>
+        </div>
+      </div>
+
+      <div class="field two">
+        <div>
+          <label for="tod">開始時間帯</label>
+          <select id="tod">
+            <option value="">すべて</option>
+            <option value="morning">朝（5〜12時）</option>
+            <option value="day">昼（12〜18時）</option>
+            <option value="night">夜（18〜24時）</option>
+            <option value="late">深夜（0〜5時）</option>
+          </select>
+        </div>
+        <div>
+          <label for="dow">曜日</label>
+          <select id="dow">
+            <option value="">すべて</option>
+            <option value="1">月</option><option value="2">火</option><option value="3">水</option>
+            <option value="4">木</option><option value="5">金</option><option value="6">土</option>
+            <option value="0">日</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field two">
+        <div>
+          <label for="len">長さ</label>
+          <select id="len">
+            <option value="">すべて</option>
+            <option value="0-1800">〜30分</option>
+            <option value="1800-3600">30分〜1時間</option>
+            <option value="3600-7200">1〜2時間</option>
+            <option value="7200-">2時間〜</option>
+          </select>
+        </div>
+        <div>
+          <label for="type">種類</label>
+          <select id="type">
+            <option value="">すべて</option>
+            <option value="live">配信アーカイブ</option>
+            <option value="video">動画</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="button" class="reset" id="reset">条件をクリア</button>
+    </aside>
+
+    <section class="results">
+      <div class="results-bar">
+        <p id="count"></p>
+        <select id="sort" aria-label="並び順">
+          <option value="new">新しい順</option>
+          <option value="old">古い順</option>
+          <option value="long">長い順</option>
+          <option value="short">短い順</option>
+        </select>
+      </div>
+      <nav class="pager" id="pagerTop" aria-label="ページ"></nav>
+      <ul class="grid" id="list"></ul>
+      <nav class="pager" id="pagerBottom" aria-label="ページ"></nav>
+      <p class="empty" id="empty" hidden>条件に合うアーカイブがありません。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    当サイトは Palette Project の非公式ファンサイトです。動画情報は YouTube Data API を利用して取得しています。
+  </footer>
+
+  <script src="data/archives.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

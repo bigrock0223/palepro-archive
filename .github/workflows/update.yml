@@ -1,0 +1,60 @@
+# YouTubeから最新データを取得 → ジャンル付け → GitHub Pages に公開
+# 事前準備（README参照）:
+#   Settings > Secrets and variables > Actions
+#     Secrets:   YT_API_KEY      … YouTube Data API キー
+#     Variables: SHEET_CSV_URL   … （任意）手動ジャンル用スプレッドシートの公開CSV URL
+#   Settings > Pages > Source を「GitHub Actions」に
+name: update-archives
+
+on:
+  schedule:
+    - cron: '17 */3 * * *'   # 3時間ごと（UTC）
+  workflow_dispatch:          # 手動実行ボタン
+  push:
+    branches: [main]
+    paths: ['public/**', 'config/**', 'scripts/**']
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-archives
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: YouTubeから取得
+        run: node scripts/fetch.mjs
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+
+      - name: ジャンル付けとサイト用データ生成
+        run: node scripts/build.mjs
+        env:
+          SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
+
+      - name: 取得データをコミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/videos.json public/data/archives.js
+          git diff --cached --quiet || git commit -m "データ更新 $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deploy
+        uses: actions/deploy-pages@v4
