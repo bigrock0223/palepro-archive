@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/videos.json public/data/archives.js
+          git add data/videos.json 
           git diff --cached --quiet || git commit -m "データ更新 $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
 
