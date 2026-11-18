@@ -68,22 +68,32 @@ async function main() {
   const { rules, fallback } = await readJson('config/genre-rules.json');
   const db = await readJson('data/videos.json');
   const overrides = await loadOverrides();
-  const normRules = rules.map((r) => ({ genre: r.genre, kws: r.keywords.map(normalize) }));
+  const normRules = rules.map((r) => ({
+    genre: r.genre,
+    kws: r.keywords.map(normalize),
+    excludes: (r.excludes || []).map(normalize),
+    types: r.types || null,
+  }));
+  // 種類: live=配信アーカイブ / short=ショート（3分以内の動画 or #shorts）/ video=動画
+  const typeOf = (v) => (v.type === 'video' && (v.durationSec <= 180 || /#shorts/i.test(v.title)) ? 'short' : v.type);
 
   const videos = Object.values(db.videos)
     .sort((a, b) => b.startAt.localeCompare(a.startAt))
     .map((v) => {
       const t = normalize(v.title);
-      let auto = normRules.filter((r) => r.kws.some((k) => t.includes(k))).map((r) => r.genre);
+      const ty = typeOf(v);
+      let auto = [...new Set(normRules
+        .filter((r) => (!r.types || r.types.includes(ty)) && !r.excludes.some((x) => t.includes(x)) && r.kws.some((k) => t.includes(k)))
+        .map((r) => r.genre))];
       if (!auto.length) auto = [fallback];
       const ov = overrides.get(v.id);
       const manual = ov ? ov.genres : [];
       const finalAuto = ov?.mode === 'replace' ? [] : auto.filter((g) => !manual.includes(g));
       // 出力はファイルサイズを抑えるため短いキー名
-      return { id: v.id, c: v.channel, t: v.title, s: v.startAt, d: v.durationSec, ty: v.type, th: v.thumbnail, g: finalAuto, m: manual };
+      return { id: v.id, c: v.channel, t: v.title, s: v.startAt, d: v.durationSec, ty, th: v.thumbnail, g: finalAuto, m: manual };
     });
 
-  const genreOrder = [...rules.map((r) => r.genre), fallback];
+  const genreOrder = [...new Set([...rules.map((r) => r.genre), fallback])];
   for (const v of videos) for (const g of v.m) if (!genreOrder.includes(g)) genreOrder.push(g);
 
   const out = {
