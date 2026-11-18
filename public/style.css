@@ -21,13 +21,14 @@ button, input, select { font: inherit; color: inherit; }
 .brand h1 { margin: 0; font-size: 20px; letter-spacing: .02em; }
 .palette-dots { display: inline-flex; gap: 3px; }
 .palette-dots i { width: 9px; height: 9px; border-radius: 50%; display: block; }
-.palette-dots i:nth-child(1) { background: #e86a6a; }
-.palette-dots i:nth-child(2) { background: #f39a4c; }
-.palette-dots i:nth-child(3) { background: #f0c34a; }
-.palette-dots i:nth-child(4) { background: #6cc48a; }
-.palette-dots i:nth-child(5) { background: #5ec3e8; }
-.palette-dots i:nth-child(6) { background: #5a8fe0; }
-.palette-dots i:nth-child(7) { background: #9a72d6; }
+.palette-dots i:nth-child(1) { background: #f39a4c; }
+.palette-dots i:nth-child(2) { background: #5a8fe0; }
+.palette-dots i:nth-child(3) { background: #2f9e5a; }
+.palette-dots i:nth-child(4) { background: #f2a7c3; }
+.palette-dots i:nth-child(5) { background: #e05555; }
+.palette-dots i:nth-child(6) { background: #9a72d6; }
+.palette-dots i:nth-child(7) { background: #6ec8f0; }
+.palette-dots i:nth-child(8) { background: #88d8c0; }
 .unofficial { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 1px 8px; }
 .updated { margin: 0; color: var(--muted); font-size: 12px; }
 
@@ -71,7 +72,7 @@ input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accen
   border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 3px 10px;
   font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
 }
-.chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g, var(--c, #999)); }
+.chip .dot { width: 9px; height: 9px; border-radius: 50%; box-sizing: border-box; background: var(--g, var(--c, #999)); border: 2px solid var(--r, transparent); }
 .chip[aria-pressed=true] { background: var(--ink); border-color: var(--ink); color: #fff; }
 .chip .n { color: var(--muted); font-size: 11px; }
 .chip[aria-pressed=true] .n { color: #cfc9d6; }
@@ -87,6 +88,8 @@ input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accen
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
 .thumb { position: relative; display: block; aspect-ratio: 16/9; background: linear-gradient(135deg, var(--c, #ccc), #fff); }
 /* グラデーション指定のチャンネル（公式の虹色など）は、白を重ねて淡くする */
+/* 縁取り指定のチャンネル（公式）は、縁取りの色から白へのグラデーション */
+.thumb[style*="--r"] { background: linear-gradient(135deg, var(--r), #fff); }
 .thumb[style*="--g"] { background: linear-gradient(135deg, rgba(255,255,255,0) 20%, rgba(255,255,255,.85)), var(--g); }
 .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .thumb .noimg { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,.3); }
@@ -97,7 +100,7 @@ input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accen
 .title a:hover { text-decoration: underline; }
 .meta { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; flex-wrap: wrap; }
 .meta .who { display: inline-flex; align-items: center; gap: 4px; color: var(--ink); }
-.meta .who .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g, var(--c)); }
+.meta .who .dot { width: 9px; height: 9px; border-radius: 50%; box-sizing: border-box; background: var(--g, var(--c)); border: 2px solid var(--r, transparent); }
 .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
 .tag { font-size: 11px; border-radius: 4px; padding: 1px 6px; cursor: pointer; border: 1px solid var(--line); background: #f6f3ef; }
 .tag.manual { background: #efeafd; border-color: #d6cdf7; color: #4b3cae; }

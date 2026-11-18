@@ -3,8 +3,8 @@
   const PAGE = 60;
   const $ = (id) => document.getElementById(id);
   const chMap = Object.fromEntries(DATA.channels.map((c) => [c.key, c]));
-  // メンバーカラーのCSS変数（gradient があれば虹色などで表示）
-  const chStyle = (c) => `--c:${c.color}` + (c.gradient ? `;--g:${c.gradient}` : '');
+  // メンバーカラーのCSS変数（gradient=グラデーション / ring=縁取り）
+  const chStyle = (c) => `--c:${c.color}` + (c.gradient ? `;--g:${c.gradient}` : '') + (c.ring ? `;--r:${c.ring}` : '');
 
   // ---- 表記ゆれ吸収（ビルド側と同じルール）----
   const normalize = (s = '') => s.normalize('NFKC').toLowerCase()

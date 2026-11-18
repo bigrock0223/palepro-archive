@@ -98,7 +98,7 @@ async function main() {
 
   const out = {
     updatedAt: db.updatedAt,
-    channels: channels.map(({ key, name, color, gradient }) => ({ key, name, color, ...(gradient ? { gradient } : {}) })),
+    channels: channels.map(({ key, name, color, gradient, ring }) => ({ key, name, color, ...(gradient ? { gradient } : {}), ...(ring ? { ring } : {}) })),
     genres: genreOrder,
     videos,
   };
