@@ -50,31 +50,20 @@
         </div>
       </div>
 
-      <div class="field two">
-        <div>
-          <label for="tod">開始時間帯</label>
-          <select id="tod">
-            <option value="">すべて</option>
-            <option value="morning">朝（5〜12時）</option>
-            <option value="day">昼（12〜18時）</option>
-            <option value="night">夜（18〜24時）</option>
-            <option value="late">深夜（0〜5時）</option>
-          </select>
-        </div>
-        <div>
-          <label for="dow">曜日</label>
-          <select id="dow">
-            <option value="">すべて</option>
-            <option value="1">月</option><option value="2">火</option><option value="3">水</option>
-            <option value="4">木</option><option value="5">金</option><option value="6">土</option>
-            <option value="0">日</option>
-          </select>
-        </div>
-      </div>
+      <button type="button" class="reset" id="reset">条件をクリア</button>
+    </aside>
 
-      <div class="field two">
-        <div>
-          <label for="len">長さ</label>
+    <section class="results">
+      <div class="toolbar" aria-label="表示条件">
+        <label class="tool">種類
+          <select id="type">
+            <option value="">すべて</option>
+            <option value="live">配信アーカイブ</option>
+            <option value="video">動画</option>
+            <option value="short">ショート</option>
+          </select>
+        </label>
+        <label class="tool">長さ
           <select id="len">
             <option value="">すべて</option>
             <option value="0-1800">〜30分</option>
@@ -82,30 +71,35 @@
             <option value="3600-7200">1〜2時間</option>
             <option value="7200-">2時間〜</option>
           </select>
-        </div>
-        <div>
-          <label for="type">種類</label>
-          <select id="type">
+        </label>
+        <label class="tool">開始時間帯
+          <select id="tod">
             <option value="">すべて</option>
-            <option value="live">配信アーカイブ</option>
-            <option value="video">動画</option>
-            <option value="short">ショート</option>
+            <option value="morning">朝（5〜12時）</option>
+            <option value="day">昼（12〜18時）</option>
+            <option value="night">夜（18〜24時）</option>
+            <option value="late">深夜（0〜5時）</option>
           </select>
-        </div>
+        </label>
+        <label class="tool">曜日
+          <select id="dow">
+            <option value="">すべて</option>
+            <option value="1">月</option><option value="2">火</option><option value="3">水</option>
+            <option value="4">木</option><option value="5">金</option><option value="6">土</option>
+            <option value="0">日</option>
+          </select>
+        </label>
+        <label class="tool sort">並び順
+          <select id="sort">
+            <option value="new">新しい順</option>
+            <option value="old">古い順</option>
+            <option value="long">長い順</option>
+            <option value="short">短い順</option>
+          </select>
+        </label>
       </div>
-
-      <button type="button" class="reset" id="reset">条件をクリア</button>
-    </aside>
-
-    <section class="results">
       <div class="results-bar">
         <p id="count"></p>
-        <select id="sort" aria-label="並び順">
-          <option value="new">新しい順</option>
-          <option value="old">古い順</option>
-          <option value="long">長い順</option>
-          <option value="short">短い順</option>
-        </select>
       </div>
       <nav class="pager" id="pagerTop" aria-label="ページ"></nav>
       <ul class="grid" id="list"></ul>

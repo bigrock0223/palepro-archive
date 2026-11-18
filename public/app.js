@@ -155,7 +155,7 @@
     $('pagerTop').innerHTML = $('pagerBottom').innerHTML = renderPager(total);
     $('empty').hidden = res.length > 0;
     const active = (state.q ? 1 : 0) + state.members.length + state.genres.length
-      + ['from', 'to', 'tod', 'dow', 'len', 'type'].filter((k) => state[k]).length;
+      + ['from', 'to'].filter((k) => state[k]).length;
     $('filterToggle').textContent = active ? `絞り込み条件（${active}）` : '絞り込み条件';
     for (const el of document.querySelectorAll('#members .chip')) el.setAttribute('aria-pressed', state.members.includes(el.dataset.member));
     for (const el of document.querySelectorAll('#genres .chip')) el.setAttribute('aria-pressed', state.genres.includes(el.dataset.genre));
