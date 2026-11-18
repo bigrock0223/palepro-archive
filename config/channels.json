@@ -4,11 +4,11 @@
     { "key": "official", "name": "Palette Project 公式", "color": "#9a72d6", "gradient": "linear-gradient(135deg, #e86a6a, #f39a4c, #f0c34a, #2f9e5a, #6ec8f0, #5a8fe0, #9a72d6)", "handle": "@paletteproject", "channelId": "" },
     { "key": "kotoha",   "name": "藤宮コトハ",   "color": "#f2a7c3", "handle": "@fujimiyakotoha", "channelId": "" },
     { "key": "mahalo",   "name": "夏渚まはろ",   "color": "#88d8c0", "handle": "@nanagisamahalo", "channelId": "" },
-    { "key": "kaname",   "name": "常磐カナメ",   "color": "#2f9e5a", "handle": "", "channelId": "" },
-    { "key": "rona",     "name": "七海ロナ",     "color": "#5a8fe0", "handle": "", "channelId": "" },
-    { "key": "clara",    "name": "暁月クララ",   "color": "#f39a4c", "handle": "", "channelId": "" },
-    { "key": "kyouka",   "name": "江波キョウカ", "color": "#e05555", "handle": "", "channelId": "" },
-    { "key": "ayumu",    "name": "鬼多見アユム", "color": "#9a72d6", "handle": "", "channelId": "" },
-    { "key": "hanon",    "name": "香鳴ハノン",   "color": "#6ec8f0", "handle": "", "channelId": "" }
+    { "key": "kaname",   "name": "常磐カナメ",   "color": "#2f9e5a", "handle": "@tokiwakaname", "channelId": "" },
+    { "key": "rona",     "name": "七海ロナ",     "color": "#5a8fe0", "handle": "@nanamirona", "channelId": "" },
+    { "key": "clara",    "name": "暁月クララ",   "color": "#f39a4c", "handle": "@akatsukiclara", "channelId": "" },
+    { "key": "kyouka",   "name": "江波キョウカ", "color": "#e05555", "handle": "@ebakyouka", "channelId": "" },
+    { "key": "ayumu",    "name": "鬼多見アユム", "color": "#9a72d6", "handle": "@kitamiayumu", "channelId": "" },
+    { "key": "hanon",    "name": "香鳴ハノン",   "color": "#6ec8f0", "handle": "@kanaruhanon", "channelId": "" }
   ]
 }
