@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-19T16:06:20.829Z",
+ "updatedAt": "2026-11-19T19:04:29.850Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134255,6 +134255,28 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/8OWrklKbC24/mqdefault.jpg?v=6afd9e4a",
    "fetchedAt": "2026-11-19T16:06:19.194Z"
+  },
+  "hu3_XJAiCOQ": {
+   "id": "hu3_XJAiCOQ",
+   "channel": "rona",
+   "title": "【A Little to the Left】睡眠導入チルパズル、最終回🌟【パレプロ／七海ロナ】",
+   "publishedAt": "2026-11-18T14:35:03Z",
+   "startAt": "2026-11-19T14:46:17Z",
+   "durationSec": 11765,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/hu3_XJAiCOQ/mqdefault.jpg?v=6afdb799",
+   "fetchedAt": "2026-11-19T19:04:26.736Z"
+  },
+  "5Zu0ON_iLJc": {
+   "id": "5Zu0ON_iLJc",
+   "channel": "kotoha",
+   "title": "昼夜逆転から目覚めれたら遂行される配信【藤宮コトハ / パレプロ】",
+   "publishedAt": "2026-11-19T02:12:08Z",
+   "startAt": "2026-11-19T11:24:29Z",
+   "durationSec": 21087,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/5Zu0ON_iLJc/mqdefault.jpg?v=6afee169",
+   "fetchedAt": "2026-11-19T19:04:27.946Z"
   }
  }
 }
