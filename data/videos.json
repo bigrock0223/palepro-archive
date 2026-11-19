@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-19T07:22:55.559Z",
+ "updatedAt": "2026-11-19T10:14:10.964Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134178,6 +134178,28 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/ifDGbjVSu_Q/mqdefault.jpg",
    "fetchedAt": "2026-11-18T16:06:08.554Z"
+  },
+  "Ve-OrwkrqRo": {
+   "id": "Ve-OrwkrqRo",
+   "channel": "kotoha",
+   "title": "いーやーやだやだ🐰🍑#shorts #藤宮コトハ #パレプロ #うさぎラップ #ちいかわ",
+   "publishedAt": "2026-11-19T09:00:25Z",
+   "startAt": "2026-11-19T09:00:25Z",
+   "durationSec": 18,
+   "type": "video",
+   "thumbnail": "https://i.ytimg.com/vi/Ve-OrwkrqRo/mqdefault.jpg",
+   "fetchedAt": "2026-11-19T10:14:08.020Z"
+  },
+  "SAMmDAZvNn4": {
+   "id": "SAMmDAZvNn4",
+   "channel": "kotoha",
+   "title": "おはよおお☀どうしよう昼夜逆転かもお【藤宮コトハ / パレプロ】",
+   "publishedAt": "2026-11-18T21:08:51Z",
+   "startAt": "2026-11-18T21:13:46Z",
+   "durationSec": 18301,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/SAMmDAZvNn4/mqdefault.jpg?v=6afe13e6",
+   "fetchedAt": "2026-11-19T10:14:08.020Z"
   }
  }
 }
