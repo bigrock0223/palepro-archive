@@ -27,13 +27,18 @@
   });
 
   // ---- 状態（URLのクエリと同期）----
-  const state = { q: '', members: [], genres: [], genreAnd: false, from: '', to: '', tod: '', dow: '', len: '', type: '', sort: 'new' };
+  // members: 出演者（公式はチャンネル）/ memberAnd: 全員出演 / ownerOnly: チャンネルの持ち主で絞る / units: ユニット
+  const INITIAL = { q: '', members: [], memberAnd: false, ownerOnly: false, units: [], genres: [], genreAnd: false, from: '', to: '', tod: '', dow: '', len: '', type: '', sort: 'new' };
+  const state = { ...INITIAL };
   let page = 1;
 
   function readUrl() {
     const p = new URLSearchParams(location.search);
     state.q = p.get('q') || '';
     state.members = (p.get('member') || '').split(',').filter(Boolean);
+    state.memberAnd = p.get('mand') === '1';
+    state.ownerOnly = p.get('owner') === '1';
+    state.units = (p.get('unit') || '').split(',').filter(Boolean);
     state.genres = (p.get('genre') || '').split(',').filter(Boolean);
     state.genreAnd = p.get('and') === '1';
     for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type']) state[k] = p.get(k) || '';
@@ -44,6 +49,9 @@
     const p = new URLSearchParams();
     if (state.q) p.set('q', state.q);
     if (state.members.length) p.set('member', state.members.join(','));
+    if (state.memberAnd) p.set('mand', '1');
+    if (state.ownerOnly) p.set('owner', '1');
+    if (state.units.length) p.set('unit', state.units.join(','));
     if (state.genres.length) p.set('genre', state.genres.join(','));
     if (state.genreAnd) p.set('and', '1');
     for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type']) if (state[k]) p.set(k, state[k]);
@@ -64,7 +72,12 @@
     const tod = TOD[state.tod];
     const res = videos.filter((v) => {
       if (words.length && !words.every((w) => v.norm.includes(w))) return false;
-      if (state.members.length && !state.members.includes(v.c)) return false;
+      if (state.members.length) {
+        // 公式はチャンネルで判定、メンバーは出演者で判定（「チャンネル主のみ」ならチャンネルで判定）
+        const has = (k) => (k === 'official' || state.ownerOnly ? v.c === k : v.p.includes(k));
+        if (!(state.memberAnd && !state.ownerOnly ? state.members.every(has) : state.members.some(has))) return false;
+      }
+      if (state.units.length && !state.units.some((u) => v.u.includes(u))) return false;
       if (state.genres.length) {
         const ok = state.genreAnd ? state.genres.every((g) => v.all.includes(g)) : state.genres.some((g) => v.all.includes(g));
         if (!ok) return false;
@@ -106,15 +119,34 @@
       <div class="body">
         <p class="title"><a href="${url}" target="_blank" rel="noopener">${esc(v.t)}</a></p>
         <div class="meta"><span class="who" style="${chStyle(ch)}"><span class="dot"></span>${esc(ch.name)}</span><span>${v.label}</span></div>
+        ${castLine(v)}
         <div class="tags">${tags}</div>
       </div>
     </li>`;
   }
 
+  // 出演者とユニットの表示（例: 出演 ●クララ ●ハノン  [Sputrip]）
+  const shortName = (c) => c.name.replace(/^(暁月|七海|常磐|藤宮|江波|鬼多見|香鳴|夏渚)/, '');
+  function castLine(v) {
+    if (!v.p.length && !v.u.length) return '';
+    const ps = v.p.map((k) => chMap[k]).filter(Boolean)
+      .map((c) => `<button type="button" class="cast" data-member="${c.key}" style="${chStyle(c)}" title="${esc(c.name)}で絞り込む"><span class="dot"></span>${esc(shortName(c))}</button>`).join('');
+    const us = v.u.map((u) => `<button type="button" class="unit" data-unit="${esc(u)}" title="${esc(u)}で絞り込む">${esc(u)}</button>`).join('');
+    return `<div class="castline"><span class="lbl">出演</span>${ps}${us}</div>`;
+  }
+
   function renderChips() {
     // 件数は「その条件を除いた現在の絞り込み」ではなく全体件数（シンプルさ優先）
-    const mCount = {}, gCount = {};
-    for (const v of videos) { mCount[v.c] = (mCount[v.c] || 0) + 1; for (const g of v.all) gCount[g] = (gCount[g] || 0) + 1; }
+    const mCount = {}, gCount = {}, uCount = {};
+    for (const v of videos) {
+      if (state.ownerOnly || v.c === 'official') mCount[v.c] = (mCount[v.c] || 0) + 1;
+      if (!state.ownerOnly) for (const k of v.p) mCount[k] = (mCount[k] || 0) + 1;
+      for (const g of v.all) gCount[g] = (gCount[g] || 0) + 1;
+      for (const u of v.u) uCount[u] = (uCount[u] || 0) + 1;
+    }
+    $('units').innerHTML = (DATA.units || []).filter((u) => uCount[u]).map((u) =>
+      `<button type="button" class="chip" data-unit="${esc(u)}" aria-pressed="${state.units.includes(u)}">${esc(u)} <span class="n">${uCount[u]}</span></button>`).join('');
+    $('unitField').hidden = !(DATA.units || []).some((u) => uCount[u]);
     $('members').innerHTML = DATA.channels.filter((c) => mCount[c.key]).map((c) =>
       `<button type="button" class="chip" data-member="${c.key}" aria-pressed="${state.members.includes(c.key)}" style="${chStyle(c)}"><span class="dot"></span>${esc(c.name)} <span class="n">${mCount[c.key]}</span></button>`).join('');
     $('genres').innerHTML = DATA.genres.filter((g) => gCount[g]).map((g) =>
@@ -154,16 +186,19 @@
     $('list').innerHTML = res.slice(start, start + PAGE).map(card).join('');
     $('pagerTop').innerHTML = $('pagerBottom').innerHTML = renderPager(total);
     $('empty').hidden = res.length > 0;
-    const active = (state.q ? 1 : 0) + state.members.length + state.genres.length
+    const active = (state.q ? 1 : 0) + state.members.length + state.units.length + state.genres.length
       + ['from', 'to'].filter((k) => state[k]).length;
     $('filterToggle').textContent = active ? `絞り込み条件（${active}）` : '絞り込み条件';
     for (const el of document.querySelectorAll('#members .chip')) el.setAttribute('aria-pressed', state.members.includes(el.dataset.member));
+    for (const el of document.querySelectorAll('#units .chip')) el.setAttribute('aria-pressed', state.units.includes(el.dataset.unit));
     for (const el of document.querySelectorAll('#genres .chip')) el.setAttribute('aria-pressed', state.genres.includes(el.dataset.genre));
     writeUrl(push);
   }
 
   function syncInputs() {
     $('q').value = state.q; $('genreAnd').checked = state.genreAnd;
+    $('memberAnd').checked = state.memberAnd; $('ownerOnly').checked = state.ownerOnly;
+    $('memberAnd').disabled = state.ownerOnly;
     for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type', 'sort']) $(k).value = state[k];
   }
 
@@ -175,11 +210,17 @@
   $('q').addEventListener('input', (e) => { clearTimeout(timer); timer = setTimeout(() => { state.q = e.target.value; update(); }, 150); });
   for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type', 'sort']) $(k).addEventListener('change', (e) => { state[k] = e.target.value; update(); });
   $('genreAnd').addEventListener('change', (e) => { state.genreAnd = e.target.checked; update(); });
+  $('memberAnd').addEventListener('change', (e) => { state.memberAnd = e.target.checked; update(); });
+  $('ownerOnly').addEventListener('change', (e) => { state.ownerOnly = e.target.checked; syncInputs(); renderChips(); update(); });
+  $('units').addEventListener('click', (e) => { const b = e.target.closest('[data-unit]'); if (b) { state.units = toggle(state.units, b.dataset.unit); update(); } });
   $('members').addEventListener('click', (e) => { const b = e.target.closest('[data-member]'); if (b) { state.members = toggle(state.members, b.dataset.member); update(); } });
   $('genres').addEventListener('click', (e) => { const b = e.target.closest('[data-genre]'); if (b) { state.genres = toggle(state.genres, b.dataset.genre); update(); } });
   $('list').addEventListener('click', (e) => {
-    const b = e.target.closest('.tag'); if (!b) return;
-    if (!state.genres.includes(b.dataset.genre)) state.genres = [...state.genres, b.dataset.genre];
+    // カード内のジャンル・出演者・ユニットを押すと、その条件を追加
+    const b = e.target.closest('.tag, .cast, .unit'); if (!b) return;
+    if (b.dataset.genre && !state.genres.includes(b.dataset.genre)) state.genres = [...state.genres, b.dataset.genre];
+    if (b.dataset.member && !state.members.includes(b.dataset.member)) state.members = [...state.members, b.dataset.member];
+    if (b.dataset.unit && !state.units.includes(b.dataset.unit)) state.units = [...state.units, b.dataset.unit];
     update(); window.scrollTo({ top: 0, behavior: 'smooth' });
   });
   $('quick').addEventListener('click', (e) => {
@@ -205,7 +246,8 @@
   }
   window.addEventListener('popstate', () => { readUrl(); syncInputs(); render(); });
   $('reset').addEventListener('click', () => {
-    Object.assign(state, { q: '', members: [], genres: [], genreAnd: false, from: '', to: '', tod: '', dow: '', len: '', type: '', sort: 'new' });
+    Object.assign(state, INITIAL, { members: [], units: [], genres: [] });
+    renderChips();
     syncInputs(); update();
   });
 

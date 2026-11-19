@@ -132,3 +132,18 @@ input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accen
 .empty { text-align: center; color: var(--muted); padding: 40px 0; }
 
 .site-footer { text-align: center; color: var(--muted); font-size: 11px; padding: 24px; }
+
+/* メンバー欄の補助チェック */
+.inline.sub { display: inline-flex; gap: 4px; align-items: center; margin-top: 8px; font-size: 12px; color: var(--muted); cursor: pointer; }
+.inline input:disabled + * , .inline:has(input:disabled) { opacity: .5; }
+
+/* カード内の出演者・ユニット */
+.castline { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; font-size: 11.5px; }
+.castline .lbl { color: var(--muted); margin-right: 2px; }
+.castline .cast, .castline .unit {
+  display: inline-flex; align-items: center; gap: 3px; border: none; background: none; padding: 0; cursor: pointer; color: var(--ink); font-size: 11.5px;
+}
+.castline .cast .dot { width: 8px; height: 8px; border-radius: 50%; box-sizing: border-box; background: var(--g, var(--c)); border: 2px solid var(--r, transparent); }
+.castline .cast:hover { text-decoration: underline; }
+.castline .unit { border: 1px solid #cfe6f3; background: #eaf6fc; color: #2a6a8e; border-radius: 4px; padding: 0 6px; }
+.castline .unit:hover { border-color: var(--accent); }

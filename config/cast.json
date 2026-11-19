@@ -1,0 +1,35 @@
+{
+  "_説明": "出演者・ユニットの自動判定の設定です。タイトルに名前・愛称・ユニット名・コンビ名が含まれていれば出演者として付けます（カタカナとひらがなは区別、全角半角・大文字小文字は区別しません）。チャンネルの持ち主は常に出演者になります。判定結果は config/genres.xlsx の「出演:」「ユニット:」列で手直しできます。",
+  "members": {
+    "clara":  { "debut": "2018-07-23", "names": ["暁月クララ", "暁月", "クララ"], "aliases": ["クララちゃん", "くーちゃん", "ぷりん"] },
+    "rona":   { "debut": "2018-07-23", "names": ["七海ロナ", "ロナ"], "aliases": ["ロナちゃん", "ロナロナ"], "excludes": ["コロナ", "ロナウド", "バルセロナ"] },
+    "kaname": { "debut": "2019-04-28", "names": ["常磐カナメ", "カナメ"], "aliases": ["カナメちゃん", "なめなめ", "なめこ", "ちくわぶ"], "excludes": ["なめこ栽培"] },
+    "kotoha": { "debut": "2019-05-06", "names": ["藤宮コトハ", "藤宮", "コトハ"], "aliases": ["コトハちゃん", "こぱちゃん"] },
+    "kyouka": { "debut": "2020-02-07", "names": ["江波キョウカ", "江波", "キョウカ"], "aliases": ["キョウカちゃん", "きょんち", "江波ちゃん", "ぴよ"] },
+    "ayumu":  { "debut": "2020-06-15", "names": ["鬼多見アユム", "鬼多見", "アユム"], "aliases": ["アユムちゃん", "あゆゆ"] },
+    "hanon":  { "debut": "2020-10-01", "names": ["香鳴ハノン", "香鳴", "ハノン"], "aliases": ["ハノンちゃん", "はのは", "なっとう"] },
+    "mahalo": { "debut": "2024-05-11", "names": ["夏渚まはろ", "夏渚", "まはろ"], "aliases": ["まはろん", "隊長"] }
+  },
+  "units": [
+    { "name": "Sputrip",   "members": ["clara", "kaname", "hanon"], "keywords": ["sputrip", "すぷーとりっぷ", "めちゃすぷ"] },
+    { "name": "REGALILIA", "members": ["kyouka", "ayumu"],          "keywords": ["regalilia", "レガギマ", "レガリリア"] },
+    { "name": "RouteHeart","members": ["rona", "kotoha"],           "keywords": ["routeheart", "rouetheart", "ルートハート"] },
+    { "name": "Alt!!",     "members": ["rona", "clara"],            "keywords": ["alt!!"] },
+    { "name": "Altimate",  "members": ["rona", "kotoha"],           "keywords": ["altimate"] }
+  ],
+  "combos": [
+    { "name": "ぎゃるばぶ",   "members": ["rona", "kotoha", "kaname", "ayumu"] },
+    { "name": "ろなめこ",     "members": ["rona", "kaname"] },
+    { "name": "ぴよノン",     "members": ["kyouka", "hanon"] },
+    { "name": "くらきょん",   "members": ["clara", "kyouka"] },
+    { "name": "小川コンビ",   "members": ["kaname", "mahalo"] },
+    { "name": "ばぶず",       "members": ["ayumu", "kaname"] },
+    { "name": "えばまは",     "members": ["kyouka", "mahalo"] },
+    { "name": "はのまはろん", "members": ["hanon", "mahalo"] }
+  ],
+  "allMembers": {
+    "_説明": "これらの語を含む公式チャンネルの動画は、その日時点でデビュー済みのメンバー全員を出演者にします（debut の日付で判定）",
+    "keywords": ["全員集合", "全員"],
+    "channels": ["official"]
+  }
+}
