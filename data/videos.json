@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-19T13:22:39.442Z",
+ "updatedAt": "2026-11-19T16:06:20.829Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134222,6 +134222,39 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/CkOk3FBYkRs/mqdefault.jpg?v=6afee36e",
    "fetchedAt": "2026-11-19T13:22:34.467Z"
+  },
+  "GKmgIlRMmgA": {
+   "id": "GKmgIlRMmgA",
+   "channel": "clara",
+   "title": "✧︎*.〖 #学園アイドルマスター┊︎＃２５〗氷渡香名江さんにガシャで出会いたい！✨アイドルの学マスへの反応は！？💗※ネタバレあり〖#暁月クララ┊︎#パレプロ〗#学マス",
+   "publishedAt": "2026-11-19T16:03:49Z",
+   "startAt": "2026-11-19T13:19:11Z",
+   "durationSec": 4017,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/GKmgIlRMmgA/mqdefault.jpg",
+   "fetchedAt": "2026-11-19T16:06:16.011Z"
+  },
+  "VmnNbNjyFw8": {
+   "id": "VmnNbNjyFw8",
+   "channel": "clara",
+   "title": "【#妹に運転を教える 】初見にこの大爆発はズルいってwwww【#切り抜き 】#暁月クララ",
+   "publishedAt": "2026-11-19T15:08:48Z",
+   "startAt": "2026-11-19T15:08:48Z",
+   "durationSec": 24,
+   "type": "video",
+   "thumbnail": "https://i.ytimg.com/vi/VmnNbNjyFw8/mqdefault.jpg",
+   "fetchedAt": "2026-11-19T16:06:16.011Z"
+  },
+  "8OWrklKbC24": {
+   "id": "8OWrklKbC24",
+   "channel": "kyouka",
+   "title": "꒰ঌ コラボ歌枠┆#しできょん XIDENちゃんとアニソン盛り盛り♡初めてのコラボ歌枠！【 #江波キョウカ / #XIDEN 】",
+   "publishedAt": "2026-11-18T12:47:03Z",
+   "startAt": "2026-11-19T12:00:34Z",
+   "durationSec": 7092,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/8OWrklKbC24/mqdefault.jpg?v=6afd9e4a",
+   "fetchedAt": "2026-11-19T16:06:19.194Z"
   }
  }
 }
