@@ -147,3 +147,20 @@ input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accen
 .castline .cast:hover { text-decoration: underline; }
 .castline .unit { border: 1px solid #cfe6f3; background: #eaf6fc; color: #2a6a8e; border-radius: 4px; padding: 0 6px; }
 .castline .unit:hover { border-color: var(--accent); }
+
+/* 上部の配信日（日付2つ＋すばやく選ぶボタンを横一列に） */
+.tool.date .daterow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-weight: 400; color: var(--ink); }
+.tool.date input[type=date] { width: auto; }
+.tool.date .quick { margin-top: 0; }
+@media (max-width: 600px) {
+  .tool.date { grid-column: 1 / -1; }
+  .tool.date input[type=date] { flex: 1; min-width: 0; }
+}
+
+/* 並び順は件数の右側に */
+.sortbox { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.sortbox select { width: auto; font-weight: 400; color: var(--ink); }
+@media (max-width: 600px) {
+  .tool.date .daterow input[type=date] { flex: 1 1 40%; }
+  .tool.date .quick { flex-basis: 100%; }
+}

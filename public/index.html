@@ -44,20 +44,6 @@
         <div class="chips" id="genres"></div>
       </div>
 
-      <div class="field">
-        <span class="label">配信日</span>
-        <div class="row">
-          <input id="from" type="date" aria-label="開始日"> <span>〜</span>
-          <input id="to" type="date" aria-label="終了日">
-        </div>
-        <div class="quick" id="quick">
-          <button type="button" data-range="7">1週間</button>
-          <button type="button" data-range="30">1か月</button>
-          <button type="button" data-range="365">1年</button>
-          <button type="button" data-range="0">指定なし</button>
-        </div>
-      </div>
-
       <button type="button" class="reset" id="reset">条件をクリア</button>
     </aside>
 
@@ -80,24 +66,21 @@
             <option value="7200-">2時間〜</option>
           </select>
         </label>
-        <label class="tool">開始時間帯
-          <select id="tod">
-            <option value="">すべて</option>
-            <option value="morning">朝（5〜12時）</option>
-            <option value="day">昼（12〜18時）</option>
-            <option value="night">夜（18〜24時）</option>
-            <option value="late">深夜（0〜5時）</option>
-          </select>
-        </label>
-        <label class="tool">曜日
-          <select id="dow">
-            <option value="">すべて</option>
-            <option value="1">月</option><option value="2">火</option><option value="3">水</option>
-            <option value="4">木</option><option value="5">金</option><option value="6">土</option>
-            <option value="0">日</option>
-          </select>
-        </label>
-        <label class="tool sort">並び順
+        <div class="tool date">配信日
+          <div class="daterow">
+            <input id="from" type="date" aria-label="開始日"><span>〜</span><input id="to" type="date" aria-label="終了日">
+            <div class="quick" id="quick">
+              <button type="button" data-range="7">1週間</button>
+              <button type="button" data-range="30">1か月</button>
+              <button type="button" data-range="365">1年</button>
+              <button type="button" data-range="0">指定なし</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="results-bar">
+        <p id="count"></p>
+        <label class="sortbox">並び順
           <select id="sort">
             <option value="new">新しい順</option>
             <option value="old">古い順</option>
@@ -105,9 +88,6 @@
             <option value="short">短い順</option>
           </select>
         </label>
-      </div>
-      <div class="results-bar">
-        <p id="count"></p>
       </div>
       <nav class="pager" id="pagerTop" aria-label="ページ"></nav>
       <ul class="grid" id="list"></ul>

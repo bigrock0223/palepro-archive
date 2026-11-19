@@ -28,7 +28,7 @@
 
   // ---- 状態（URLのクエリと同期）----
   // members: 出演者（公式はチャンネル）/ memberAnd: 全員出演 / ownerOnly: チャンネルの持ち主で絞る / units: ユニット
-  const INITIAL = { q: '', members: [], memberAnd: false, ownerOnly: false, units: [], genres: [], genreAnd: false, from: '', to: '', tod: '', dow: '', len: '', type: '', sort: 'new' };
+  const INITIAL = { q: '', members: [], memberAnd: false, ownerOnly: false, units: [], genres: [], genreAnd: false, from: '', to: '', len: '', type: '', sort: 'new' };
   const state = { ...INITIAL };
   let page = 1;
 
@@ -41,7 +41,7 @@
     state.units = (p.get('unit') || '').split(',').filter(Boolean);
     state.genres = (p.get('genre') || '').split(',').filter(Boolean);
     state.genreAnd = p.get('and') === '1';
-    for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type']) state[k] = p.get(k) || '';
+    for (const k of ['from', 'to', 'len', 'type']) state[k] = p.get(k) || '';
     state.sort = p.get('sort') || 'new';
     page = Math.max(1, parseInt(p.get('page'), 10) || 1);
   }
@@ -54,7 +54,7 @@
     if (state.units.length) p.set('unit', state.units.join(','));
     if (state.genres.length) p.set('genre', state.genres.join(','));
     if (state.genreAnd) p.set('and', '1');
-    for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type']) if (state[k]) p.set(k, state[k]);
+    for (const k of ['from', 'to', 'len', 'type']) if (state[k]) p.set(k, state[k]);
     if (state.sort !== 'new') p.set('sort', state.sort);
     if (page > 1) p.set('page', page);
     const qs = p.toString();
@@ -65,11 +65,9 @@
   }
 
   // ---- 絞り込み ----
-  const TOD = { morning: [5, 12], day: [12, 18], night: [18, 24], late: [0, 5] };
   function filter() {
     const words = normalize(state.q).split(/\s+/).filter(Boolean);
     const [lmin, lmax] = state.len ? state.len.split('-').map((x) => (x === '' ? Infinity : Number(x))) : [0, Infinity];
-    const tod = TOD[state.tod];
     const res = videos.filter((v) => {
       if (words.length && !words.every((w) => v.norm.includes(w))) return false;
       if (state.members.length) {
@@ -84,8 +82,6 @@
       }
       if (state.from && v.day < state.from) return false;
       if (state.to && v.day > state.to) return false;
-      if (tod && !(v.hour >= tod[0] && v.hour < tod[1])) return false;
-      if (state.dow !== '' && v.dow !== Number(state.dow)) return false;
       if (state.len && !(v.d >= lmin && v.d < lmax)) return false;
       if (state.type && v.ty !== state.type) return false;
       return true;
@@ -186,8 +182,7 @@
     $('list').innerHTML = res.slice(start, start + PAGE).map(card).join('');
     $('pagerTop').innerHTML = $('pagerBottom').innerHTML = renderPager(total);
     $('empty').hidden = res.length > 0;
-    const active = (state.q ? 1 : 0) + state.members.length + state.units.length + state.genres.length
-      + ['from', 'to'].filter((k) => state[k]).length;
+    const active = (state.q ? 1 : 0) + state.members.length + state.units.length + state.genres.length;
     $('filterToggle').textContent = active ? `絞り込み条件（${active}）` : '絞り込み条件';
     for (const el of document.querySelectorAll('#members .chip')) el.setAttribute('aria-pressed', state.members.includes(el.dataset.member));
     for (const el of document.querySelectorAll('#units .chip')) el.setAttribute('aria-pressed', state.units.includes(el.dataset.unit));
@@ -199,7 +194,7 @@
     $('q').value = state.q; $('genreAnd').checked = state.genreAnd;
     $('memberAnd').checked = state.memberAnd; $('ownerOnly').checked = state.ownerOnly;
     $('memberAnd').disabled = state.ownerOnly;
-    for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type', 'sort']) $(k).value = state[k];
+    for (const k of ['from', 'to', 'len', 'type', 'sort']) $(k).value = state[k];
   }
 
   const update = () => { page = 1; render(); };
@@ -208,7 +203,7 @@
   // ---- イベント ----
   let timer;
   $('q').addEventListener('input', (e) => { clearTimeout(timer); timer = setTimeout(() => { state.q = e.target.value; update(); }, 150); });
-  for (const k of ['from', 'to', 'tod', 'dow', 'len', 'type', 'sort']) $(k).addEventListener('change', (e) => { state[k] = e.target.value; update(); });
+  for (const k of ['from', 'to', 'len', 'type', 'sort']) $(k).addEventListener('change', (e) => { state[k] = e.target.value; update(); });
   $('genreAnd').addEventListener('change', (e) => { state.genreAnd = e.target.checked; update(); });
   $('memberAnd').addEventListener('change', (e) => { state.memberAnd = e.target.checked; update(); });
   $('ownerOnly').addEventListener('change', (e) => { state.ownerOnly = e.target.checked; syncInputs(); renderChips(); update(); });
