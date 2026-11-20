@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-20T10:10:32.352Z",
+ "updatedAt": "2026-11-20T13:18:16.135Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134299,6 +134299,28 @@
    "type": "video",
    "thumbnail": "https://i.ytimg.com/vi/y8jvGn0RJgY/mqdefault.jpg",
    "fetchedAt": "2026-11-20T10:10:30.707Z"
+  },
+  "mumOa79z_xA": {
+   "id": "mumOa79z_xA",
+   "channel": "clara",
+   "title": "✧︎*.〖 #学園アイドルマスター┊︎＃２６〗ほぼミリしら初見プレイ！氷渡香名江ちゃん編✨アイドルの学マスへの反応は！？💗※ネタバレあり〖#暁月クララ┊︎#パレプロ〗#学マス",
+   "publishedAt": "2026-11-20T11:03:46Z",
+   "startAt": "2026-11-20T11:06:33Z",
+   "durationSec": 7802,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/mumOa79z_xA/mqdefault.jpg?v=6b002915",
+   "fetchedAt": "2026-11-20T13:18:11.657Z"
+  },
+  "39Q6koEpcWI": {
+   "id": "39Q6koEpcWI",
+   "channel": "kaname",
+   "title": "常磐カナメフランス一人旅Vlog",
+   "publishedAt": "2026-11-20T11:33:08Z",
+   "startAt": "2026-11-20T11:33:08Z",
+   "durationSec": 662,
+   "type": "video",
+   "thumbnail": "https://i.ytimg.com/vi/39Q6koEpcWI/mqdefault.jpg",
+   "fetchedAt": "2026-11-20T13:18:13.036Z"
   }
  }
 }
