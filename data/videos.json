@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-20T03:58:17.387Z",
+ "updatedAt": "2026-11-20T07:23:14.016Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134277,6 +134277,17 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/5Zu0ON_iLJc/mqdefault.jpg?v=6afee169",
    "fetchedAt": "2026-11-19T19:04:27.946Z"
+  },
+  "yrfHkGzCksU": {
+   "id": "yrfHkGzCksU",
+   "channel": "kotoha",
+   "title": "昼夜逆転なおったかもしれない！！【藤宮コトハ / パレプロ】",
+   "publishedAt": "2026-11-19T22:51:58Z",
+   "startAt": "2026-11-19T22:55:54Z",
+   "durationSec": 22196,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/yrfHkGzCksU/mqdefault.jpg?v=6aff7d90",
+   "fetchedAt": "2026-11-20T07:23:12.508Z"
   }
  }
 }
