@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-20T07:23:14.016Z",
+ "updatedAt": "2026-11-20T10:10:32.352Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134288,6 +134288,17 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/yrfHkGzCksU/mqdefault.jpg?v=6aff7d90",
    "fetchedAt": "2026-11-20T07:23:12.508Z"
+  },
+  "y8jvGn0RJgY": {
+   "id": "y8jvGn0RJgY",
+   "channel": "kotoha",
+   "title": "うららやーはやは✨🐰#shorts #藤宮コトハ #パレプロ #ちいかわ",
+   "publishedAt": "2026-11-20T09:00:22Z",
+   "startAt": "2026-11-20T09:00:22Z",
+   "durationSec": 8,
+   "type": "video",
+   "thumbnail": "https://i.ytimg.com/vi/y8jvGn0RJgY/mqdefault.jpg",
+   "fetchedAt": "2026-11-20T10:10:30.707Z"
   }
  }
 }
