@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-20T13:18:16.135Z",
+ "updatedAt": "2026-11-20T16:00:40.623Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134321,6 +134321,39 @@
    "type": "video",
    "thumbnail": "https://i.ytimg.com/vi/39Q6koEpcWI/mqdefault.jpg",
    "fetchedAt": "2026-11-20T13:18:13.036Z"
+  },
+  "IGo0vitrIdU": {
+   "id": "IGo0vitrIdU",
+   "channel": "clara",
+   "title": "氷渡香名江さんとオタクトークで盛り上がる【#学園アイドルマスター 】#切り抜き #学マス",
+   "publishedAt": "2026-11-20T15:09:14Z",
+   "startAt": "2026-11-20T15:09:14Z",
+   "durationSec": 30,
+   "type": "video",
+   "thumbnail": "https://i.ytimg.com/vi/IGo0vitrIdU/mqdefault.jpg",
+   "fetchedAt": "2026-11-20T16:00:35.300Z"
+  },
+  "PVRcqdj6jr0": {
+   "id": "PVRcqdj6jr0",
+   "channel": "kotoha",
+   "title": "#藤宮コトハ生誕祭2026 ライブありがとうございました～！！🍀【藤宮コトハ / パレプロ】",
+   "publishedAt": "2026-11-19T00:16:20Z",
+   "startAt": "2026-11-20T10:59:46Z",
+   "durationSec": 17642,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/PVRcqdj6jr0/mqdefault.jpg?v=6afe3fd6",
+   "fetchedAt": "2026-11-20T16:00:38.104Z"
+  },
+  "uNpRZ2bntN0": {
+   "id": "uNpRZ2bntN0",
+   "channel": "hanon",
+   "title": "【肝試しオンライン】おれは！！！役立たずの可能性がものすごく！！！高い！！！【#パレプロ #香鳴ハノン】",
+   "publishedAt": "2026-11-20T11:42:29Z",
+   "startAt": "2026-11-20T12:00:09Z",
+   "durationSec": 5188,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/uNpRZ2bntN0/mqdefault.jpg?v=6b003227",
+   "fetchedAt": "2026-11-20T16:00:40.347Z"
   }
  }
 }
