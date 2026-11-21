@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-21T09:53:28.715Z",
+ "updatedAt": "2026-11-21T13:00:17.339Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134387,6 +134387,28 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/KFM025Ytb7A/mqdefault.jpg",
    "fetchedAt": "2026-11-21T09:53:26.401Z"
+  },
+  "P9ocyUJzUWg": {
+   "id": "P9ocyUJzUWg",
+   "channel": "kaname",
+   "title": "【 #ぶいのね歌枠リレー 】ﾊﾁｬﾒﾁｬ文学少女、いっくぞ～！【パレプロ/常磐カナメ】",
+   "publishedAt": "2026-11-21T12:19:18Z",
+   "startAt": "2026-11-21T10:30:24Z",
+   "durationSec": 1797,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/P9ocyUJzUWg/mqdefault.jpg",
+   "fetchedAt": "2026-11-21T13:00:14.830Z"
+  },
+  "i4b67HLniBc": {
+   "id": "i4b67HLniBc",
+   "channel": "ayumu",
+   "title": "【#雑談 】ラブビームくらっちゃった？【鬼多見アユム🍊👹】",
+   "publishedAt": "2026-11-21T11:21:19Z",
+   "startAt": "2026-11-21T09:00:28Z",
+   "durationSec": 6731,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/i4b67HLniBc/mqdefault.jpg",
+   "fetchedAt": "2026-11-21T13:00:16.553Z"
   }
  }
 }
