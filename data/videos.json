@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-21T07:14:19.821Z",
+ "updatedAt": "2026-11-21T09:53:28.715Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134365,6 +134365,28 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/KjoXApxozrU/mqdefault.jpg",
    "fetchedAt": "2026-11-20T19:04:19.862Z"
+  },
+  "vsLcRlJzmw4": {
+   "id": "vsLcRlJzmw4",
+   "channel": "official",
+   "title": "全力で\"ボケる\"メンバーたちｗ 【パレプロ切り抜き】#shorts",
+   "publishedAt": "2026-11-21T09:00:19Z",
+   "startAt": "2026-11-21T09:00:19Z",
+   "durationSec": 50,
+   "type": "video",
+   "thumbnail": "https://i.ytimg.com/vi/vsLcRlJzmw4/mqdefault.jpg",
+   "fetchedAt": "2026-11-21T09:53:24.170Z"
+  },
+  "KFM025Ytb7A": {
+   "id": "KFM025Ytb7A",
+   "channel": "kotoha",
+   "title": "【#ムーミン谷の夏まつり】ビジュよすぎて癒し【藤宮コトハ / パレプロ】",
+   "publishedAt": "2026-11-21T09:09:47Z",
+   "startAt": "2026-11-21T01:04:42Z",
+   "durationSec": 23469,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/KFM025Ytb7A/mqdefault.jpg",
+   "fetchedAt": "2026-11-21T09:53:26.401Z"
   }
  }
 }
