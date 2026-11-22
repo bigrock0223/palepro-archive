@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-22T15:51:27.756Z",
+ "updatedAt": "2026-11-22T18:54:33.991Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134475,6 +134475,17 @@
    "type": "live",
    "thumbnail": "https://i.ytimg.com/vi/-O7lB9xeqJs/mqdefault.jpg",
    "fetchedAt": "2026-11-22T15:51:27.731Z"
+  },
+  "bVc9gESAHjE": {
+   "id": "bVc9gESAHjE",
+   "channel": "kotoha",
+   "title": "さくさく解けないタイプです。ヒントは見るものでしょう？【藤宮コトハ / パレプロ】",
+   "publishedAt": "2026-11-22T12:11:01Z",
+   "startAt": "2026-11-22T12:14:06Z",
+   "durationSec": 19205,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/bVc9gESAHjE/mqdefault.jpg?v=6b02dbd8",
+   "fetchedAt": "2026-11-22T18:54:32.135Z"
   }
  }
 }
