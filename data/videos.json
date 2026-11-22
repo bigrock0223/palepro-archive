@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-22T09:52:49.302Z",
+ "updatedAt": "2026-11-22T12:58:41.095Z",
  "channelIds": {
   "official": "UC_cCW1xmXwRFp1tX-RD2X1Q",
   "kotoha": "UCGndc74kfWb_A-8hZBG534Q",
@@ -134453,6 +134453,17 @@
    "type": "video",
    "thumbnail": "https://i.ytimg.com/vi/EHEORDR6Ty0/mqdefault.jpg",
    "fetchedAt": "2026-11-22T09:52:47.726Z"
+  },
+  "ZCMVHazQ340": {
+   "id": "ZCMVHazQ340",
+   "channel": "clara",
+   "title": "✧︎*.〖 #朝ノ瑠璃主催３D歌枠リレー 〗これがVアイドルだっ✨シティポップユニットSputripが宇宙の旅にご案内！！！⋆꙳〖#暁月クララ┊︎#パレプロ〗",
+   "publishedAt": "2026-11-22T12:55:36Z",
+   "startAt": "2026-11-22T12:12:39Z",
+   "durationSec": 1453,
+   "type": "live",
+   "thumbnail": "https://i.ytimg.com/vi/ZCMVHazQ340/mqdefault.jpg",
+   "fetchedAt": "2026-11-22T12:58:37.932Z"
   }
  }
 }
