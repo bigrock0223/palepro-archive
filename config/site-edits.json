@@ -5,7 +5,8 @@
     {"name":"耐久","keywords":[],"added":"2026-11-23"},
     {"name":"水着","keywords":[],"added":"2026-11-23"},
     {"name":"お披露目","keywords":[],"added":"2026-11-23"},
-    {"name":"オフコラボ","keywords":[],"added":"2026-11-23"}
+    {"name":"オフコラボ","keywords":[],"added":"2026-11-23"},
+    {"name":"実写","keywords":[],"added":"2026-11-23"}
   ],
   "videos": {
     "_3p-atDnZIM": {"genres":["歌枠","企画","耐久"]},
@@ -719,6 +720,7 @@
     "ov74rZL5gTg": {"reviewed":"2026-11-23","genres":["ゲーム"]},
     "oVIGD9cPOBg": {"genres":["誕生日・記念","お知らせ","お披露目"]},
     "ovst6AkWG5c": {"reviewed":"2026-11-23"},
+    "OW2Pl8hlwK0": {"reviewed":"2026-11-23","genres":["雑談","コラボ"]},
     "owI1GvSn9l0": {"genres":["歌枠","縦型配信"]},
     "OYQ7gztjGi4": {"genres":["歌枠","縦型配信"]},
     "OZdkZgnE8hk": {"reviewed":"2026-11-23"},
@@ -1088,6 +1090,7 @@
     "y8ynveUUjb0": {"reviewed":"2026-11-23"},
     "y9gw82HhKHA": {"genres":["ゲーム","企画","耐久"]},
     "yaAvRsYDOKI": {"reviewed":"2026-11-23"},
+    "ycAdSNZAVi8": {"reviewed":"2026-11-23","type":"動画","genres":["お知らせ","実写"],"cast":["クララ","コトハ","キョウカ"]},
     "ydmnKAMwXFc": {"genres":["誕生日・記念","縦型配信"]},
     "yGGa7HnVvsc": {"genres":["3D","雑談","誕生日・記念","お知らせ","お披露目"]},
     "YhZH5lzDNiY": {"genres":["誕生日・記念","お知らせ","お披露目"]},
