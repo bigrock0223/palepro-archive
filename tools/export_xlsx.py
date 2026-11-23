@@ -10,7 +10,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl import load_workbook
 arch, out = sys.argv[1], sys.argv[2]
 prev = sys.argv[3] if len(sys.argv) > 3 else None
-FIXED = ['配信日時', 'メンバー', '種類', '長さ', 'タイトル', 'メモ', '動画ID', 'URL']
+FIXED = ['配信日時', 'メンバー', '種類', '長さ', 'タイトル', '確認済', 'メモ', '動画ID', 'URL']
 PREFIX = ('暁月', '七海', '常磐', '藤宮', '江波', '鬼多見', '香鳴', '夏渚')
 def short(name):
     for p in PREFIX:
@@ -39,7 +39,7 @@ if prev:
 added = 0
 TYPE = {'live': '配信', 'video': '動画', 'short': 'ショート'}
 wb = Workbook(); ws = wb.active; ws.title = 'ジャンル'
-head = ['配信日時', 'メンバー', '種類', '長さ', 'タイトル'] + genres + ['メモ', '動画ID', 'URL']
+head = ['配信日時', 'メンバー', '種類', '長さ', 'タイトル'] + genres + ['確認済', 'メモ', '動画ID', 'URL']
 ws.append(head)
 JST = datetime.timezone(datetime.timedelta(hours=9))
 for v in d['videos']:
@@ -50,12 +50,14 @@ for v in d['videos']:
         rec = kept[v['id']]
         marks = ['○' if str(rec.get(g) or '').strip() else None for g in genres]
         memo = rec.get('メモ')
+        reviewed = rec.get('確認済')
     else:
         gs = set(v['g']) | set(v['m']) | {f"出演:{short(ch.get(k, k))}" for k in v.get('p', [])} | {f'ユニット:{u}' for u in v.get('u', [])}
         marks = ['○' if g in gs else None for g in genres]
         memo = '新着（自動判定）' if prev else None
+        reviewed = None
         added += 1
-    ws.append([t, ch.get(v['c'], v['c']), TYPE.get(v['ty'], v['ty']), f'{h}:{m:02d}', v['t']] + marks + [memo, v['id'], url])
+    ws.append([t, ch.get(v['c'], v['c']), TYPE.get(v['ty'], v['ty']), f'{h}:{m:02d}', v['t']] + marks + [reviewed, memo, v['id'], url])
 n = ws.max_row; g0 = 6; g1 = 5 + len(genres)
 thin = Side(style='thin', color='DDDDDD')
 hdr_fill = PatternFill('solid', fgColor='F3F0FA')
@@ -67,9 +69,10 @@ ws.row_dimensions[1].height = 96
 widths = {'A': 17, 'B': 16, 'C': 8, 'D': 7, 'E': 70}
 for k, w in widths.items(): ws.column_dimensions[k].width = w
 for c in range(g0, g1 + 1): ws.column_dimensions[get_column_letter(c)].width = 4.2
-ws.column_dimensions[get_column_letter(g1 + 1)].width = 24
-ws.column_dimensions[get_column_letter(g1 + 2)].width = 14
-ws.column_dimensions[get_column_letter(g1 + 3)].width = 44
+ws.column_dimensions[get_column_letter(g1 + 1)].width = 11
+ws.column_dimensions[get_column_letter(g1 + 2)].width = 24
+ws.column_dimensions[get_column_letter(g1 + 3)].width = 14
+ws.column_dimensions[get_column_letter(g1 + 4)].width = 44
 for r in range(2, n + 1):
     ws.cell(r, 1).number_format = 'yyyy/mm/dd hh:mm'
     for c in range(g0, g1 + 1): ws.cell(r, c).alignment = Alignment(horizontal='center')
@@ -87,10 +90,12 @@ for line in [
   '・この表に載っている動画は、この表の○だけがジャンルになります（自動判定は使いません）。',
   '・ある行の○をすべて消すと、その動画は自動判定のジャンルに戻ります。',
   '・この表にない新着動画は自動判定のジャンルになります。新着の追記はClaudeに依頼してください。',
-  '・ジャンルを増やすときは、「メモ」列の左に列を挿入して1行目にジャンル名を書きます。',
+  '・ジャンルを増やすときは、ジャンル列の間に列を挿入して1行目にジャンル名を書きます。',
   '・ジャンル名を変えるときは1行目を書き換えます（新着の自動判定にも反映したいときはClaudeに伝えてください）。列の並び順がサイトでのジャンルの並び順になります。',
   '・新着として追加された行は「メモ」列に「新着（自動判定）」と入ります。確認したらメモを消してかまいません。',
-  '・「配信日時」「メンバー」「種類」「長さ」「タイトル」「URL」は参照用です（書き換えても反映されません）。',
+  '・「種類」列（配信／動画／ショート）は書き換えるとサイトの種類が変わります。',
+  '・「確認済」列に日付などが入っている動画は確認済みとして扱います（確認モードの対象外になります）。',
+  '・「配信日時」「メンバー」「長さ」「タイトル」「URL」は参照用です（書き換えても反映されません）。',
   '・「動画ID」列は消したり書き換えたりしないでください。',
   '・編集後は上書き保存（.xlsx のまま）→ GitHub Desktop で Commit → Push すると反映されます。',
 ]:

@@ -1,0 +1,144 @@
+/* 確認モード（review.html）専用のスタイル。共通の色や部品は style.css を使う */
+body.review { padding-bottom: 40px; }
+.rv-header {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
+  padding: 12px 20px; background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5;
+}
+.rv-title { display: flex; align-items: center; gap: 10px; }
+.rv-title h1 { margin: 0; font-size: 18px; }
+.rv-back { font-size: 12px; color: var(--muted); }
+.rv-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 12px; }
+.rv-progress { display: flex; align-items: center; gap: 8px; }
+.rv-progress .bar { width: 140px; height: 6px; background: #eee; border-radius: 99px; overflow: hidden; }
+.rv-progress .bar i { display: block; height: 100%; background: var(--accent); width: 0; }
+.rv-today { color: var(--muted); }
+.rv-save-text { color: var(--muted); }
+.rv-save-text.warn { color: #b5651d; font-weight: 600; }
+.rv-save-text.err { color: #c0392b; font-weight: 600; }
+
+.rv-btn { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 13px; }
+.rv-btn:hover { border-color: var(--accent); color: var(--accent); }
+.rv-btn.ghost { background: transparent; }
+.rv-btn:disabled { opacity: .45; cursor: default; }
+.rv-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.rv-filters {
+  display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 14px; padding: 10px 20px;
+  background: #fbfaf8; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted);
+}
+.rv-filters label { display: flex; flex-direction: column; gap: 3px; font-weight: 600; }
+.rv-filters label.chk { flex-direction: row; align-items: center; gap: 5px; font-weight: 400; padding-bottom: 6px; }
+.rv-filters select, .rv-filters input[type=search] { width: auto; min-width: 120px; font-weight: 400; color: var(--ink); }
+.rv-filters input[type=search] { min-width: 200px; }
+
+.rv-main { display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto; }
+@media (max-width: 960px) { .rv-main { grid-template-columns: 1fr; padding: 12px; } }
+
+/* 左：動画の情報 */
+.rv-left { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; align-self: start; }
+.rv-thumb { display: block; position: relative; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; background: linear-gradient(135deg, var(--c, #ccc), #fff); max-width: 560px; }
+.rv-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rv-thumb .dur { position: absolute; right: 8px; bottom: 8px; background: rgba(0,0,0,.75); color: #fff; font-size: 12px; padding: 1px 6px; border-radius: 4px; }
+.rv-itemtitle { font-size: 16px; margin: 12px 0 6px; line-height: 1.5; }
+.rv-itemtitle a { color: inherit; }
+.rv-meta { color: var(--muted); font-size: 13px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+.rv-meta .who { display: inline-flex; align-items: center; gap: 5px; color: var(--ink); }
+.rv-meta .who .dot { width: 9px; height: 9px; border-radius: 50%; box-sizing: border-box; background: var(--g, var(--c)); border: 2px solid var(--r, transparent); }
+.rv-reasons { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.rv-reason { background: #fff4e5; color: #8a5300; border: 1px solid #f3d6a6; border-radius: 6px; font-size: 12px; padding: 2px 8px; }
+.rv-badge-done { background: #e8f6ee; color: #1e7a46; border: 1px solid #bfe5cf; border-radius: 6px; font-size: 12px; padding: 2px 8px; }
+.rv-desc { white-space: pre-wrap; font-size: 13px; line-height: 1.6; color: #4a4550; background: #faf8f5; border-radius: 8px; padding: 10px 12px; margin-top: 10px; max-height: 260px; overflow: auto; }
+.rv-desc.empty { color: var(--muted); }
+.rv-pos { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+
+/* 右：タグの編集 */
+.rv-right { display: flex; flex-direction: column; gap: 12px; align-self: start; position: sticky; top: 72px; }
+@media (max-width: 960px) { .rv-right { position: static; } }
+.rv-box { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.rv-box h3 { margin: 0 0 8px; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+.rv-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.rv-chip {
+  border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 10px; font-size: 13px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px; min-height: 34px; user-select: none;
+}
+.rv-chip .dot { width: 9px; height: 9px; border-radius: 50%; box-sizing: border-box; background: var(--g, var(--c, #999)); border: 2px solid var(--r, transparent); }
+.rv-chip:hover { border-color: var(--accent); }
+.rv-chip.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+.rv-chip.on.genre { background: #5b4bc4; border-color: #5b4bc4; }
+.rv-chip.on.cast { background: #a6781b; border-color: #a6781b; }
+.rv-chip.on.unit { background: #2a6a8e; border-color: #2a6a8e; }
+.rv-chip.changed { box-shadow: 0 0 0 2px #f0c34a; }
+.rv-chip.add { background: #e6f6ec; border-color: #5bb47c; color: #1e6e3d; }
+.rv-chip.add::before { content: "＋"; font-weight: 700; }
+.rv-chip.remove { background: #fdecec; border-color: #e08a8a; color: #a33; text-decoration: line-through; }
+.rv-chip.remove::before { content: "−"; font-weight: 700; text-decoration: none; }
+.rv-chip.newg { border-style: dashed; color: var(--accent); }
+.rv-type { display: flex; gap: 6px; }
+
+.rv-actions { display: flex; flex-direction: column; gap: 8px; }
+.rv-ok {
+  width: 100%; padding: 14px; font-size: 17px; font-weight: 700; color: #fff; background: #2f9e5a; border: none; border-radius: 10px; cursor: pointer;
+}
+.rv-ok:hover { background: #278a4d; }
+.rv-ok small { font-weight: 400; opacity: .8; font-size: 12px; margin-left: 6px; }
+.rv-subactions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.rv-hint { font-size: 12px; color: var(--muted); margin: 0; }
+
+.rv-series { background: #f2f9fc; border: 1px solid #cfe6f3; border-radius: var(--radius); padding: 12px 14px; font-size: 13px; }
+.rv-series:empty { display: none; }
+.rv-series .name { font-weight: 700; }
+.rv-series .rv-btn { margin-top: 8px; margin-right: 6px; }
+.rv-rep { display: inline-block; background: #2a6a8e; color: #fff; border-radius: 4px; font-size: 11px; padding: 1px 6px; margin-left: 6px; }
+
+/* 一覧で一括 */
+.rv-gridleft { min-width: 0; }
+.rv-gridbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 10px; font-size: 13px; }
+.rv-gridbar .pager { margin: 0 0 0 auto; }
+.rv-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.rv-card { background: var(--panel); border: 2px solid var(--line); border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; font-size: 12px; }
+.rv-card.sel { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(107,91,210,.2); }
+.rv-card .rv-thumb { border-radius: 0; }
+.rv-card input { position: absolute; top: 8px; left: 8px; width: 20px; height: 20px; z-index: 2; }
+.rv-card .body { padding: 6px 8px 8px; }
+.rv-card .t { font-weight: 600; line-height: 1.4; max-height: 3.9em; overflow: hidden; }
+.rv-card .m { color: var(--muted); margin-top: 2px; }
+.rv-card .tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
+.rv-card .tags span { background: #f3f0fa; border-radius: 4px; padding: 0 5px; }
+.rv-card .tags span.c { background: #fff3d6; }
+.rv-card .tags span.u { background: #e3f2fa; }
+
+.rv-empty { text-align: center; color: var(--muted); padding: 60px 0; }
+
+/* ダイアログ */
+.rv-modal { position: fixed; inset: 0; background: rgba(20, 16, 30, .45); display: flex; align-items: center; justify-content: center; z-index: 20; padding: 16px; }
+.rv-modal[hidden] { display: none; }
+.rv-dialog { background: #fff; border-radius: 12px; max-width: 760px; width: 100%; max-height: 90vh; overflow: auto; padding: 20px 22px; position: relative; }
+.rv-dialog h2 { margin: 0 0 10px; font-size: 17px; }
+.rv-dialog p { font-size: 13px; line-height: 1.6; }
+.rv-close { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 22px; cursor: pointer; color: var(--muted); }
+.rv-form { display: flex; flex-direction: column; gap: 10px; }
+.rv-form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.rv-form input[type=text], .rv-form input[type=password] { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14px; }
+.rv-form .row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.rv-err { color: #c0392b; font-size: 13px; }
+.rv-list { list-style: none; margin: 8px 0; padding: 0; max-height: 50vh; overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
+.rv-list li { display: flex; gap: 8px; align-items: flex-start; padding: 6px 10px; border-bottom: 1px solid #f0ece6; font-size: 13px; }
+.rv-list li:last-child { border-bottom: none; }
+.rv-list li .m { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.rv-list li.done { color: var(--muted); }
+
+@media (max-width: 960px) {
+  .rv-actions { position: sticky; bottom: 0; background: var(--bg); padding: 8px 0; z-index: 3; }
+}
+
+/* hidden 属性が display 指定に負けないようにする */
+.rv-main[hidden], .rv-empty[hidden] { display: none; }
+.rv-chip { padding: 5px 9px; min-height: 32px; }
+@media (max-width: 700px) {
+  .rv-header { padding: 10px 12px; }
+  .rv-filters { display: grid; grid-template-columns: 1fr 1fr; padding: 10px 12px; gap: 8px; }
+  .rv-filters select, .rv-filters input[type=search] { min-width: 0; width: 100%; }
+  .rv-filters label.chk { grid-column: 1 / -1; padding-bottom: 0; }
+  .rv-filters input[type=search], #findBtn { grid-column: 1 / -1; }
+  .rv-progress .bar { width: 80px; }
+}

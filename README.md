@@ -15,11 +15,13 @@ config/
   genres.xlsx        … ジャンル管理用Excel（ここの○がサイトのジャンルになる）
   genre-rules.json   … ジャンル自動判定のキーワード（Excel未登録の新着に使う）
   cast.json          … 出演者・ユニット自動判定の設定（名前・愛称・ユニット・コンビ・デビュー日）
+  site-edits.json    … 確認モードでの確認結果・修正（確認モードが自動で書き込む。手で編集しない）
   overrides.csv      … 予備の手動ジャンル（通常は使わない）
 tools/
   append_xlsx.py     … genres.xlsx に新着を差し込む（書式を残す。Python + openpyxl）
   export_xlsx.py     … genres.xlsx を一から作り直す（Python + openpyxl）
   add_cast_columns.py … genres.xlsx に「出演:」「ユニット:」列を差し込む（書式を残す）
+  import_site_edits.py … 確認モードの結果（site-edits.json）を genres.xlsx に取り込む（書式を残す）
 scripts/
   fetch.mjs          … YouTube API から取得 → data/videos.json
   build.mjs          … ジャンル付け → public/data/archives.js
@@ -27,6 +29,7 @@ scripts/
   make-dummy.mjs     … ダミーデータ作成
 data/videos.json     … 取得した生データ（自動更新がコミット）
 public/              … 公開されるサイト本体（index.html / style.css / app.js）
+                       確認モード（review.html / review.js / review.css）
 .github/workflows/update.yml … 3時間ごとに自動取得して Pages に公開
 .gitignore           … public/data/archives.js を GitHub で管理しない設定
 ```
@@ -83,6 +86,8 @@ public/              … 公開されるサイト本体（index.html / style.css
 
 - **種類** 列（`配信` / `動画` / `ショート` のどれか）。書かれている値がサイトの種類になる（例：ショート機能がなかった頃の短い動画を `動画` に直す）。空欄や別の文字なら自動判定
 
+- **確認済** 列。空欄でなければ確認済みとして扱い、確認モードに出てこない
+
 上記以外（配信日時・メンバー・長さ・タイトル・URL・メモの内容）は参照用で、書き換えてもサイトには反映されません。
 
 ### 自由に変えてよいもの
@@ -95,7 +100,7 @@ public/              … 公開されるサイト本体（index.html / style.css
 ### 変えてはいけないもの
 
 - シート名「ジャンル」
-- 1行目の固定の見出し：`配信日時` `メンバー` `種類` `長さ` `タイトル` `メモ` `動画ID` `URL`
+- 1行目の固定の見出し：`配信日時` `メンバー` `種類` `長さ` `タイトル` `確認済` `メモ` `動画ID` `URL`
   （ジャンル以外の列だと判断するために使っています。名前を変えるとジャンル列として扱われてしまいます）
 - 動画ID の中身（消す・書き換えると、その動画は「Excel に載っていない」扱いになります）
 
@@ -158,6 +163,65 @@ python tools/append_xlsx.py public/data/archives.js config/genres.xlsx config/ge
 - ユニットに○を付けても出演者の○は自動では付かないので、出ているメンバーにも○を付ける
 - 見出しの「出演:」「ユニット:」の部分は消さない（ジャンル列と区別するために使っています）
 - 愛称・ユニット・コンビ・デビュー日を増やしたり直したりするときは `config/cast.json` を編集（Claude に依頼可）
+
+## 確認モード（review.html）
+
+自動判定や Excel の結果を、サイト上で1件ずつ（または一覧でまとめて）確認・修正する画面です。
+`https://<ユーザー名>.github.io/palepro-archive/review.html` で開きます（鍵を登録したブラウザでは、検索サイトのフッターにもリンクが出ます）。
+
+### 最初の準備：鍵（アクセストークン）を作る
+
+1. GitHub 右上のアイコン → **Settings** → 左下の **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **Generate new token**
+2. 次のとおり設定する
+   - Token name：`palepro-review` など
+   - Expiration：90 days（切れたら作り直す）
+   - Repository access：**Only select repositories** → `palepro-archive` だけを選ぶ
+   - Permissions → Repository permissions → **Contents** を **Read and write**（Metadata は自動で Read になる）
+3. **Generate token** を押し、表示された `github_pat_…` をコピー（この画面でしか表示されない）
+4. `review.html` を開き、出てきた「鍵の設定」に貼り付けて「接続して保存」
+
+- 鍵はそのブラウザの中にだけ保存される（PC とスマホは別々に登録）。共用 PC では使わない
+- 漏れた心配があるときは、GitHub の同じ画面でその鍵を **Delete** すればすぐ無効になる
+- 鍵なしでも「鍵なしで試す」で操作を試せる（結果はそのブラウザにだけ保存され、サイトには反映されない）
+
+### 使い方
+
+- **1件ずつ**：右側のボタンでタグを付け外しして **OK → 次へ**（Enter キーでも可）
+  - 最初から今の判定結果にチェックが入っているので、合っていれば OK を押すだけ
+  - **前の動画と同じ**：直前に OK した動画のジャンル・出演者・ユニットを写す
+  - **Excel・自動判定に戻す**：確認モードで直す前の状態に戻す
+  - **シリーズ**：同じ書き方のタイトル（例：【歌枠｜karaoke】）のまとまり。「未確認の◯件にも同じジャンル・ユニットを付けてOK」で、シリーズの未確認の動画をまとめて確認済みにできる（種類と出演者はそれぞれのまま）
+- **一覧で一括**：カードを選び、右側のボタンを押すたびに「＋付ける」→「−外す」→「変更しない」と切り替わる。「選んだ動画に適用して確認済み」でまとめて反映
+- **＋新しいジャンル**：ジャンル名と自動判定用のキーワード（任意）を入れて追加。追加後に「キーワードで探して付ける」画面が開き、過去の動画にまとめて付けられる
+- **キーワードで探して付ける**（上部のボタン）：タイトルにキーワードを含む動画を探し、選んだジャンルをまとめて付ける
+- **取り消し**（Ctrl+Z）：直前の操作を取り消す（保存したあとでも、次の保存で元に戻る）
+- **保存**：20件ごと・2分ごとに自動で保存（Ctrl+S ですぐ保存）。保存すると GitHub の `config/site-edits.json` が更新され、数分後に公開サイトに反映される。保存前の分はブラウザに残るので、閉じても消えない
+- 上部の絞り込みで、チャンネル・種類・要確認の理由・未確認／確認済みを切り替えられる
+
+### 要確認の理由
+
+| 理由 | 内容 |
+|---|---|
+| ジャンルが空（その他） | どのジャンルにも当てはまらない |
+| 公式チャンネルで出演者が空 | タイトルに名前がない公式動画 |
+| 個人チャンネルにユニット名 | 例：「Sputrip楽曲縛り」の個人歌枠（ユニット全員が出演扱いになっている） |
+| 愛称・コンビ名だけで出演者を判定 | 「隊長」「ぴよ」などで判定した（Excel で出演者を指定していない動画のみ） |
+| 全員回の自動付与 | 「全員集合」などでデビュー済み全員を付けた（同上） |
+| 種類が微妙 | 3分以内で #shorts がない動画 |
+
+### 優先順位と Excel への取り込み
+
+- 優先順位：**確認モードでの確認・修正 ＞ Excel ＞ 自動判定**
+- Excel の「**確認済**」列に日付などが入っている動画も確認済みとして扱う（確認モードに出てこない）
+- 確認モードの結果は、時々 Excel に取り込んで一本化する（Claude に「確認モードの結果を Excel に取り込んで」と依頼）。`tools/import_site_edits.py` を使い、書式を残したまま ○・種類・確認済 を書き込み、追加したジャンルは列とキーワード（`genre-rules.json`）に登録して、`site-edits.json` を空に戻す
+  ```
+  python tools/import_site_edits.py config/genres.xlsx config/site-edits.json config/genre-rules.json
+  ```
+- 取り込みを依頼する前に、Excel を閉じて Commit → Pull origin → Push origin しておく
+
+### 概要欄について
+
+確認画面には概要欄の冒頭（300字）を表示します。この機能を入れる前に取得した動画の概要欄は、次回の自動更新でまとめて取り直します（API 使用量は数百ユニット程度）。
 
 ## 自動判定の調整（新着用）
 

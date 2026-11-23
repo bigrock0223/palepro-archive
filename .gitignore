@@ -1,6 +1,8 @@
 # 公開時に GitHub Actions が毎回作り直すため、GitHub では管理しない
 # （手元で確認するときは node scripts/build.mjs で作られたものが使われます）
 public/data/archives.js
+public/data/review-data.js
+public/data/desc/
 
 # Excel で開いている間にできる一時ファイル
 ~$*

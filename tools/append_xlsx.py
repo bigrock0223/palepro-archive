@@ -14,7 +14,7 @@ txt = open(arch, encoding='utf8').read()
 d = json.loads(txt[txt.index('{'):txt.rstrip().rstrip(';').rindex('}') + 1])
 ch = {c['key']: c['name'] for c in d['channels']}
 TYPE = {'live': '配信', 'video': '動画', 'short': 'ショート'}
-FIXED = ['配信日時', 'メンバー', '種類', '長さ', 'タイトル', 'メモ', '動画ID', 'URL']
+FIXED = ['配信日時', 'メンバー', '種類', '長さ', 'タイトル', '確認済', 'メモ', '動画ID', 'URL']
 JST = datetime.timezone(datetime.timedelta(hours=9))
 
 wb = load_workbook(src)

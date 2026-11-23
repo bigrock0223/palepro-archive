@@ -92,6 +92,7 @@ function toRecord(item, channelKey) {
     durationSec: parseDuration(item.contentDetails?.duration),
     type: live ? 'live' : 'video',
     thumbnail: (th.medium || th.high || th.default || {}).url || '',
+    desc: (sn.description || '').slice(0, 300), // 概要欄の冒頭（確認画面で表示）
     fetchedAt: new Date().toISOString(),
   };
 }
@@ -121,6 +122,16 @@ async function main() {
       added++;
     }
     console.log(`✔ ${ch.name}: 新規 ${added} 件`);
+  }
+
+  // 概要欄をまだ持っていない動画（この機能を入れる前に取得した分）を取り直す
+  const noDesc = Object.values(db.videos).filter((v) => v.desc === undefined);
+  if (noDesc.length) {
+    const items = await fetchDetails(noDesc.map((v) => v.id));
+    const alive = new Set(items.map((i) => i.id));
+    for (const item of items) db.videos[item.id] = toRecord(item, db.videos[item.id].channel);
+    for (const v of noDesc) if (!alive.has(v.id)) delete db.videos[v.id];
+    console.log(`＋ 概要欄を補完 ${items.length} 件`);
   }
 
   // 古くなったデータを取り直す（削除・非公開になった動画は消す）

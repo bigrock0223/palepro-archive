@@ -261,5 +261,7 @@
     const j = new Date(Date.parse(DATA.updatedAt) + JST);
     $('updated').textContent = `データ更新: ${j.getUTCFullYear()}/${pad(j.getUTCMonth() + 1)}/${pad(j.getUTCDate())} ${pad(j.getUTCHours())}:${pad(j.getUTCMinutes())}（${videos.length.toLocaleString()} 件）`;
   }
+  // 確認モードの鍵を登録したブラウザだけ、フッターに確認モードへのリンクを出す
+  try { if (localStorage.getItem('palepro-review-config')) $('reviewLink').hidden = false; } catch { /* */ }
   readUrl(); syncInputs(); renderChips(); render();
 })();

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>確認モード | パレプロ アーカイブ検索</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="review.css">
+</head>
+<body class="review">
+  <header class="rv-header">
+    <div class="rv-title">
+      <span class="palette-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <h1>確認モード</h1>
+      <a class="rv-back" href="index.html">← 検索サイトへ</a>
+    </div>
+    <div class="rv-status">
+      <div class="rv-progress"><span id="progressText"></span><div class="bar"><i id="progressBar"></i></div></div>
+      <span id="todayText" class="rv-today"></span>
+      <span id="saveText" class="rv-save-text"></span>
+      <button type="button" id="saveBtn" class="rv-btn">保存</button>
+      <button type="button" id="undoBtn" class="rv-btn ghost" title="直前の操作を取り消す（Ctrl+Z）">取り消し</button>
+      <button type="button" id="settingsBtn" class="rv-btn ghost" title="鍵の設定">⚙</button>
+    </div>
+  </header>
+
+  <div class="rv-filters">
+    <label>表示
+      <select id="fView">
+        <option value="single">1件ずつ</option>
+        <option value="grid">一覧で一括</option>
+      </select>
+    </label>
+    <label>チャンネル <select id="fChannel"><option value="">すべて</option></select></label>
+    <label>種類
+      <select id="fType">
+        <option value="">すべて</option>
+        <option value="live">配信</option>
+        <option value="video">動画</option>
+        <option value="short">ショート</option>
+      </select>
+    </label>
+    <label>要確認の理由 <select id="fReason"><option value="">すべて</option></select></label>
+    <label>対象
+      <select id="fScope">
+        <option value="todo">未確認だけ</option>
+        <option value="done">確認済みだけ</option>
+        <option value="all">すべて</option>
+      </select>
+    </label>
+    <label class="chk"><input type="checkbox" id="fSeriesFirst" checked> シリーズの代表を先に</label>
+    <input type="search" id="fQuery" placeholder="タイトルで絞り込み">
+    <button type="button" id="findBtn" class="rv-btn ghost">キーワードで探して付ける</button>
+  </div>
+
+  <main id="singleView" class="rv-main">
+    <section class="rv-left" id="itemPane"></section>
+    <section class="rv-right">
+      <div id="editPane"></div>
+      <div class="rv-actions">
+        <button type="button" id="okBtn" class="rv-ok">OK → 次へ <small>Enter</small></button>
+        <div class="rv-subactions">
+          <button type="button" id="prevBtn" class="rv-btn ghost">← 前へ</button>
+          <button type="button" id="sameBtn" class="rv-btn ghost">前の動画と同じ</button>
+          <button type="button" id="resetBtn" class="rv-btn ghost">Excel・自動判定に戻す</button>
+          <button type="button" id="skipBtn" class="rv-btn ghost">スキップ →</button>
+        </div>
+      </div>
+      <div id="seriesPane" class="rv-series"></div>
+    </section>
+  </main>
+
+  <main id="gridView" class="rv-main grid" hidden>
+    <section class="rv-gridleft">
+      <div class="rv-gridbar">
+        <label class="chk"><input type="checkbox" id="selectPage"> このページをすべて選択</label>
+        <span id="gridCount"></span>
+        <nav class="pager" id="gridPager"></nav>
+      </div>
+      <ul class="rv-grid" id="gridList"></ul>
+    </section>
+    <section class="rv-right">
+      <p class="rv-hint">ボタンを押すたびに「付ける（＋）」→「外す（−）」→「変更しない」と切り替わります。</p>
+      <div id="bulkPane"></div>
+      <div class="rv-actions">
+        <button type="button" id="bulkApplyBtn" class="rv-ok">選んだ動画に適用して確認済み</button>
+        <button type="button" id="bulkOkBtn" class="rv-btn ghost">選んだ動画を変更なしで確認済み</button>
+      </div>
+    </section>
+  </main>
+
+  <p id="emptyMsg" class="rv-empty" hidden>この条件で確認する動画はありません。</p>
+
+  <div id="modal" class="rv-modal" hidden>
+    <div class="rv-dialog" role="dialog" aria-modal="true">
+      <button type="button" class="rv-close" id="modalClose" aria-label="閉じる">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="data/archives.js"></script>
+  <script src="data/review-data.js"></script>
+  <script src="review.js"></script>
+</body>
+</html>
