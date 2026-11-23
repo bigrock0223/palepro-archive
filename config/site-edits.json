@@ -1,6 +1,7 @@
 {
   "newGenres": [
-    {"name":"縦型配信","keywords":["縦型"],"added":"2026-11-23"}
+    {"name":"縦型配信","keywords":["縦型"],"added":"2026-11-23"},
+    {"name":"公式MV","keywords":[],"added":"2026-11-23"}
   ],
   "videos": {
     "_4_l_ll2xBE": {"genres":["雑談","朝活","縦型配信"]},
