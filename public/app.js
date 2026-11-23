@@ -28,7 +28,7 @@
 
   // ---- 状態（URLのクエリと同期）----
   // members: 出演者（公式はチャンネル）/ memberAnd: 全員出演 / ownerOnly: チャンネルの持ち主で絞る / units: ユニット
-  const INITIAL = { q: '', members: [], memberAnd: false, ownerOnly: false, units: [], genres: [], genreAnd: false, from: '', to: '', len: '', type: '', sort: 'new' };
+  const INITIAL = { q: '', members: [], memberAnd: false, memberOnly: false, ownerOnly: false, units: [], genres: [], genreAnd: false, from: '', to: '', len: '', type: '', sort: 'new' };
   const state = { ...INITIAL };
   let page = 1;
 
@@ -37,6 +37,7 @@
     state.q = p.get('q') || '';
     state.members = (p.get('member') || '').split(',').filter(Boolean);
     state.memberAnd = p.get('mand') === '1';
+    state.memberOnly = p.get('monly') === '1';
     state.ownerOnly = p.get('owner') === '1';
     state.units = (p.get('unit') || '').split(',').filter(Boolean);
     state.genres = (p.get('genre') || '').split(',').filter(Boolean);
@@ -50,6 +51,7 @@
     if (state.q) p.set('q', state.q);
     if (state.members.length) p.set('member', state.members.join(','));
     if (state.memberAnd) p.set('mand', '1');
+    if (state.memberOnly) p.set('monly', '1');
     if (state.ownerOnly) p.set('owner', '1');
     if (state.units.length) p.set('unit', state.units.join(','));
     if (state.genres.length) p.set('genre', state.genres.join(','));
@@ -73,7 +75,12 @@
       if (state.members.length) {
         // 公式はチャンネルで判定、メンバーは出演者で判定（「チャンネル主のみ」ならチャンネルで判定）
         const has = (k) => (k === 'official' || state.ownerOnly ? v.c === k : v.p.includes(k));
-        if (!(state.memberAnd && !state.ownerOnly ? state.members.every(has) : state.members.some(has))) return false;
+        const people = state.members.filter((k) => k !== 'official');
+        if (state.memberOnly && !state.ownerOnly && people.length) {
+          // 完全一致: 出演者が選んだメンバーとぴったり同じ（公式も選んでいれば公式チャンネルに限る）
+          if (v.p.length !== people.length || !people.every((k) => v.p.includes(k))) return false;
+          if (state.members.includes('official') && v.c !== 'official') return false;
+        } else if (!(state.memberAnd && !state.ownerOnly ? state.members.every(has) : state.members.some(has))) return false;
       }
       if (state.units.length && !state.units.some((u) => v.u.includes(u))) return false;
       if (state.genres.length) {
@@ -193,7 +200,9 @@
   function syncInputs() {
     $('q').value = state.q; $('genreAnd').checked = state.genreAnd;
     $('memberAnd').checked = state.memberAnd; $('ownerOnly').checked = state.ownerOnly;
-    $('memberAnd').disabled = state.ownerOnly;
+    $('memberOnly').checked = state.memberOnly;
+    $('memberAnd').disabled = state.ownerOnly || state.memberOnly;
+    $('memberOnly').disabled = state.ownerOnly;
     for (const k of ['from', 'to', 'len', 'type', 'sort']) $(k).value = state[k];
   }
 
@@ -206,6 +215,7 @@
   for (const k of ['from', 'to', 'len', 'type', 'sort']) $(k).addEventListener('change', (e) => { state[k] = e.target.value; update(); });
   $('genreAnd').addEventListener('change', (e) => { state.genreAnd = e.target.checked; update(); });
   $('memberAnd').addEventListener('change', (e) => { state.memberAnd = e.target.checked; update(); });
+  $('memberOnly').addEventListener('change', (e) => { state.memberOnly = e.target.checked; syncInputs(); update(); });
   $('ownerOnly').addEventListener('change', (e) => { state.ownerOnly = e.target.checked; syncInputs(); renderChips(); update(); });
   $('units').addEventListener('click', (e) => { const b = e.target.closest('[data-unit]'); if (b) { state.units = toggle(state.units, b.dataset.unit); update(); } });
   $('members').addEventListener('click', (e) => { const b = e.target.closest('[data-member]'); if (b) { state.members = toggle(state.members, b.dataset.member); update(); } });

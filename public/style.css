@@ -164,3 +164,6 @@ input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accen
   .tool.date .daterow input[type=date] { flex: 1 1 40%; }
   .tool.date .quick { flex-basis: 100%; }
 }
+
+.subopts { display: flex; flex-direction: column; gap: 2px; margin-top: 6px; }
+.subopts .inline.sub { margin-top: 2px; }

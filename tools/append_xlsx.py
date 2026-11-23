@@ -51,13 +51,21 @@ template = {c: ws.cell(2, c) for c in range(1, ncols + 1)} if old_max >= 2 else 
 tstyle = {c: (copy.copy(t.font), copy.copy(t.fill), copy.copy(t.border), copy.copy(t.alignment), t.number_format, copy.copy(t.protection)) for c, t in template.items()}
 theight = ws.row_dimensions[2].height if old_max >= 2 else None
 
-# 行の高さは insert_rows で動かないので、自前でずらす
-heights = {r: ws.row_dimensions[r].height for r in range(2, old_max + 1) if ws.row_dimensions[r].height is not None}
+# 行の高さ・グループ化（アウトライン）・非表示は insert_rows で動かないので、自前でずらす
+ROW_ATTRS = ('height', 'hidden', 'outlineLevel', 'outline_level', 'collapsed')
+saved = {}
+for r in range(2, old_max + 1):
+    dim = ws.row_dimensions.get(r) if hasattr(ws.row_dimensions, 'get') else ws.row_dimensions[r]
+    if dim is None: continue
+    attrs = {a: getattr(dim, a) for a in ('height', 'hidden', 'outlineLevel', 'collapsed') if getattr(dim, a, None)}
+    if attrs: saved[r] = attrs
 ws.insert_rows(2, n)
-for r in list(heights):
-    ws.row_dimensions[r].height = None
-for r, h in heights.items():
-    ws.row_dimensions[r + n].height = h
+for r in saved:
+    dim = ws.row_dimensions[r]
+    dim.height = None; dim.hidden = False; dim.outlineLevel = 0; dim.collapsed = False
+for r, attrs in saved.items():
+    dim = ws.row_dimensions[r + n]
+    for a, v in attrs.items(): setattr(dim, a, v)
 
 def shift_range(ref):
     """2行目以降にかかる範囲を n 行ぶん下へ広げる（開始が2行目以下なら開始はそのまま）"""

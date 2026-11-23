@@ -71,7 +71,7 @@ async function loadExcel() {
   const file = path.join(ROOT, 'config/genres.xlsx');
   const map = new Map();
   const listed = new Set();
-  if (!existsSync(file)) return { map, listed, cast: new Map(), order: [] };
+  if (!existsSync(file)) return { map, listed, cast: new Map(), types: new Map(), order: [] };
   const rows = await readXlsx(file, 'ジャンル');
   const head = (rows[0] || []).map((h) => String(h).trim());
   const idCol = head.indexOf('動画ID');
@@ -82,11 +82,17 @@ async function loadExcel() {
   const castCols = head.map((h, i) => [h.slice(3).trim(), i]).filter((_, i) => isCast(head[i]));
   const unitCols = head.map((h, i) => [h.slice(5).trim(), i]).filter((_, i) => isUnit(head[i]));
   const cast = new Map();
+  // 「種類」列（配信 / 動画 / ショート）。書かれていればサイトの種類はこの値になる
+  const TYPE_OF = { '配信': 'live', '動画': 'video', 'ショート': 'short' };
+  const typeCol = head.indexOf('種類');
+  const types = new Map();
   let blank = 0;
   for (const r of rows.slice(1)) {
     const id = String(r[idCol] ?? '').trim();
     if (!id) continue;
     listed.add(id);
+    const ty = typeCol >= 0 ? TYPE_OF[String(r[typeCol] ?? '').trim()] : undefined;
+    if (ty) types.set(id, ty);
     const on = ([, i]) => String(r[i] ?? '').trim() !== '';
     const gs = genreCols.filter(on).map(([h]) => h);
     if (gs.length) map.set(id, gs); else blank++; // ○が1つもない行は自動判定に任せる
@@ -96,7 +102,7 @@ async function loadExcel() {
     if (ps.length || us.length) cast.set(id, { names: ps, units: us });
   }
   console.log(`ジャンル管理Excel: ${map.size} 件（○なし ${blank} 件は自動判定） / ジャンル列 ${genreCols.length} 個 / 出演・ユニット指定 ${cast.size} 件`);
-  return { map, listed, cast, order: genreCols.map(([h]) => h) };
+  return { map, listed, cast, types, order: genreCols.map(([h]) => h) };
 }
 
 // 出演者・ユニットの自動判定（config/cast.json）
@@ -156,11 +162,15 @@ async function main() {
   // 種類: live=配信アーカイブ / short=ショート（3分以内の動画 or #shorts）/ video=動画
   const typeOf = (v) => (v.type === 'video' && (v.durationSec <= 180 || /#shorts/i.test(v.title)) ? 'short' : v.type);
 
+  let typeChanged = 0;
   const videos = Object.values(db.videos)
     .sort((a, b) => b.startAt.localeCompare(a.startAt))
     .map((v) => {
       const t = normalize(v.title);
-      const ty = typeOf(v);
+      // 種類: Excelの「種類」列に値があればそれを優先（例：ショート機能がなかった頃の短い動画を「動画」に）
+      const autoTy = typeOf(v);
+      const ty = excel.types.get(v.id) || autoTy;
+      if (ty !== autoTy) typeChanged++;
       let auto = [...new Set(normRules
         .filter((r) => (!r.types || r.types.includes(ty)) && !r.excludes.some((x) => t.includes(x)) && r.kws.some((k) => t.includes(k)))
         .map((r) => r.genre))];
@@ -198,6 +208,7 @@ async function main() {
   await mkdir(path.join(ROOT, 'public/data'), { recursive: true });
   // file:// で直接開いても動くよう、JSONではなく JS として書き出す
   await writeFile(path.join(ROOT, 'public/data/archives.js'), `window.PALEPRO_DATA = ${JSON.stringify(out)};\n`);
+  if (typeChanged) console.log(`種類をExcelの指定で変更: ${typeChanged} 件`);
   const notInExcel = excel.listed.size ? Object.keys(db.videos).filter((id) => !excel.listed.has(id)).length : 0;
   console.log(`public/data/archives.js を生成（${videos.length} 件${excel.listed.size ? `、うちExcel未登録の新着 ${notInExcel} 件` : ''}）`);
 }
