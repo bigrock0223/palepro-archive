@@ -9,7 +9,8 @@
     {"name":"実写","keywords":[],"added":"2026-11-23"},
     {"name":"オンゲキ","keywords":[],"added":"2026-11-23"},
     {"name":"お名前呼び","keywords":[],"added":"2026-11-24"},
-    {"name":"マシュマロ","keywords":["マシュマロ","ましゅまろ"],"added":"2026-11-24"}
+    {"name":"マシュマロ","keywords":["マシュマロ","ましゅまろ"],"added":"2026-11-24"},
+    {"name":"料理","keywords":[],"added":"2026-11-24"}
   ],
   "videos": {
     "_2TvvvkgzP8": {"reviewed":"2026-11-24"},
@@ -163,6 +164,7 @@
     "4AbJqFxpn_w": {"reviewed":"2026-11-24","genres":["ゲーム","コラボ"]},
     "4Ad3DmjJkrI": {"genres":["雑談","企画","耐久"]},
     "4bfBZpci79Q": {"genres":["歌枠","縦型配信"]},
+    "4eS-CVGMALU": {"reviewed":"2026-11-24","genres":["企画","料理"]},
     "4hjai5jWigM": {"reviewed":"2026-11-24","genres":["ゲーム","コラボ"]},
     "4N8MP68n100": {"reviewed":"2026-11-23","genres":["ゲーム"]},
     "4Ofu_BYehpI": {"genres":["歌枠","縦型配信"]},
@@ -186,6 +188,7 @@
     "5jyKsohWIWI": {"genres":["水着"]},
     "5l8F4wu7j7o": {"reviewed":"2026-11-24"},
     "5LdVofG6Z8U": {"reviewed":"2026-11-23","genres":["ゲーム","参加型"]},
+    "5O9E_pjRT-E": {"reviewed":"2026-11-24"},
     "5OBxQvs0qwU": {"genres":["ゲーム","コラボ","オンゲキ"]},
     "5rlfokBc0F0": {"reviewed":"2026-11-24"},
     "5ueBoQQDyhI": {"reviewed":"2026-11-23"},
@@ -1179,6 +1182,7 @@
     "RQ1wb3xS3dQ": {"genres":["ゲーム","作業配信","縦型配信"]},
     "rRL_Gx17iSc": {"reviewed":"2026-11-24"},
     "rRWtWSMYbmM": {"genres":["雑談","コラボ","マシュマロ"]},
+    "RsAJPUumInQ": {"reviewed":"2026-11-24"},
     "RtQHGqo2x2E": {"reviewed":"2026-11-24","genres":["切り抜き","雑談"]},
     "rty3yqLQ23k": {"genres":["縦型配信"]},
     "RujZWf5Ymyg": {"genres":["雑談","縦型配信"]},
@@ -1260,6 +1264,7 @@
     "TBE-CuCOZcA": {"reviewed":"2026-11-24"},
     "tBfzU4Lj73g": {"genres":["歌枠","誕生日・記念","縦型配信"]},
     "tbYzPFnN3HE": {"reviewed":"2026-11-23"},
+    "TcltbysOfPw": {"reviewed":"2026-11-24","genres":["歌枠","企画"]},
     "TCTKi63cso0": {"reviewed":"2026-11-24","genres":["ゲーム","コラボ"]},
     "TdmJvStt6yc": {"genres":["ライブ","3D","雑談","縦型配信"]},
     "Tf3G5GZiTwI": {"reviewed":"2026-11-23"},
