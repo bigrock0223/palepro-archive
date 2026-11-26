@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>パレプロ アーカイブ検索（非公式）</title>
+  <title>パレサーチ ― パレプロ アーカイブ検索（非公式ファンサイト）</title>
   <!-- 検索サイト専用の見た目（B案）。確認モードは style.css を使う -->
   <!-- ?v= は変更のたびに日付を変える（ブラウザに古いファイルを使わせないため） -->
-  <link rel="stylesheet" href="search.css?v=20261126b">
+  <link rel="stylesheet" href="search.css?v=20261126d">
 </head>
 <body>
   <header class="site-header">
     <div class="head-inner">
       <div class="brand">
-        <h1>パレプロ アーカイブ検索</h1>
-        <span class="unofficial">非公式</span>
+        <h1>パレサーチ</h1>
+        <p class="brand-sub">パレプロ アーカイブ検索<span class="unofficial">非公式ファンサイト</span></p>
       </div>
       <form class="searchbox" id="searchForm" role="search">
         <label for="q" class="sr">キーワード</label>
@@ -75,9 +75,9 @@
           <div class="box-body">
             <div class="checklist" id="members"></div>
             <div class="subopts">
-              <label><input type="checkbox" id="memberAnd"> 全員出演</label>
+              <label><input type="checkbox" id="memberAnd"> 選んだメンバーが全員出演</label>
               <label><input type="checkbox" id="memberOnly"> 選んだメンバーだけが出演（完全一致）</label>
-              <label><input type="checkbox" id="ownerOnly"> そのメンバーのチャンネルの動画だけ</label>
+              <label><input type="checkbox" id="ownerOnly"> 選んだメンバーのチャンネルのみ</label>
             </div>
           </div>
         </fieldset>
@@ -140,6 +140,6 @@
   </footer>
 
   <script src="data/archives.js"></script>
-  <script src="app.js?v=20261126b"></script>
+  <script src="app.js?v=20261126d"></script>
 </body>
 </html>
