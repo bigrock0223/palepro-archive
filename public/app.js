@@ -48,6 +48,8 @@
     state.genres = (p.get('genre') || '').split(',').filter(Boolean);
     state.genreAnd = p.get('and') === '1';
     for (const k of ['from', 'to', 'len', 'type']) state[k] = p.get(k) || '';
+    // 長さは選択肢にある値だけ受け付ける（以前の区切りで共有されたURLは「指定なし」に）
+    if (![...document.querySelectorAll('#len option')].some((o) => o.value === state.len)) state.len = '';
     state.sort = p.get('sort') || 'new';
     state.view = p.get('view') === 'card' ? 'card' : 'list';
     page = Math.max(1, parseInt(p.get('page'), 10) || 1);

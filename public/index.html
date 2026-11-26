@@ -6,7 +6,7 @@
   <title>パレサーチ ― パレプロ アーカイブ検索（非公式ファンサイト）</title>
   <!-- 検索サイト専用の見た目（B案）。確認モードは style.css を使う -->
   <!-- ?v= は変更のたびに日付を変える（ブラウザに古いファイルを使わせないため） -->
-  <link rel="stylesheet" href="search.css?v=20261126d">
+  <link rel="stylesheet" href="search.css?v=20261126e">
 </head>
 <body>
   <header class="site-header">
@@ -105,10 +105,10 @@
             <label class="fieldlabel">長さ
               <select id="len">
                 <option value="">指定なし</option>
-                <option value="0-1800">〜30分</option>
-                <option value="1800-3600">30分〜1時間</option>
+                <option value="0-3600">1時間未満</option>
                 <option value="3600-7200">1〜2時間</option>
-                <option value="7200-">2時間〜</option>
+                <option value="7200-10800">2〜3時間</option>
+                <option value="10800-">3時間以上</option>
               </select>
             </label>
             <div class="fieldlabel">配信日
@@ -140,6 +140,6 @@
   </footer>
 
   <script src="data/archives.js"></script>
-  <script src="app.js?v=20261126d"></script>
+  <script src="app.js?v=20261126e"></script>
 </body>
 </html>
