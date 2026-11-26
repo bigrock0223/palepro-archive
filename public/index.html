@@ -4,74 +4,117 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>パレプロ アーカイブ検索（非公式）</title>
-  <link rel="stylesheet" href="style.css">
+  <!-- 検索サイト専用の見た目（B案）。確認モードは style.css を使う -->
+  <link rel="stylesheet" href="search.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="brand">
-      <span class="palette-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-      <h1>パレプロ アーカイブ検索</h1>
-      <span class="unofficial">非公式ファンサイト</span>
+    <div class="head-inner">
+      <div class="brand">
+        <h1>パレプロ アーカイブ検索</h1>
+        <span class="unofficial">非公式</span>
+      </div>
+      <form class="searchbox" id="searchForm" role="search">
+        <label for="q" class="sr">キーワード</label>
+        <input id="q" type="search" placeholder="タイトルで検索（スペースで複数語）" autocomplete="off">
+        <button type="submit">検索</button>
+      </form>
+      <p class="updated" id="updated"></p>
     </div>
-    <p class="updated" id="updated"></p>
+    <div class="palette-line" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </header>
 
   <main class="layout">
-    <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filters">絞り込み条件</button>
-    <aside class="filters" id="filters">
-      <div class="field">
-        <label for="q">キーワード</label>
-        <input id="q" type="search" placeholder="タイトルで検索（スペースで複数語）">
-      </div>
-
-      <div class="field">
-        <span class="label">メンバー（出演）
-          <label class="inline"><input type="checkbox" id="memberAnd"> 全員出演</label>
-        </span>
-        <div class="chips" id="members"></div>
-        <div class="subopts">
-          <label class="inline sub"><input type="checkbox" id="memberOnly"> 選んだメンバーだけが出演（完全一致）</label>
-          <label class="inline sub"><input type="checkbox" id="ownerOnly"> そのメンバーのチャンネルの動画だけ</label>
+    <section class="results" aria-label="検索結果">
+      <div class="results-panel" id="resultsPanel">
+        <div class="results-head">
+          <button type="button" class="filter-open" id="filterToggle" aria-expanded="false" aria-controls="filters">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+            <span id="filterToggleText">絞り込み</span>
+          </button>
+          <p class="count" id="count" aria-live="polite"></p>
+          <label class="sortbox"><span class="sortlabel">並び順</span>
+            <select id="sort">
+              <option value="new">新しい順</option>
+              <option value="old">古い順</option>
+              <option value="long">長い順</option>
+              <option value="short">短い順</option>
+            </select>
+          </label>
+          <div class="viewswitch" role="group" aria-label="表示のしかた" id="viewSwitch">
+            <button type="button" data-view="list" aria-pressed="true">リスト</button>
+            <button type="button" data-view="card" aria-pressed="false">カード</button>
+          </div>
         </div>
+        <ul class="items list" id="list"></ul>
+        <p class="empty" id="empty" hidden>条件に合うアーカイブがありません。<br>条件を減らすか、「条件をクリア」を押してください。</p>
+        <nav class="pager" id="pager" aria-label="ページ"></nav>
+      </div>
+    </section>
+
+    <aside class="filters" id="filters" aria-label="絞り込み">
+      <div class="filters-head">
+        <h2>絞り込み</h2>
+        <button type="button" class="linkbtn pc-only" id="reset">条件をクリア</button>
+        <button type="button" class="closebtn sp-only" id="filterClose" aria-label="閉じる">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
       </div>
 
-      <div class="field" id="unitField">
-        <span class="label">ユニット</span>
-        <div class="chips" id="units"></div>
-      </div>
+      <div class="filters-body">
+        <fieldset class="box">
+          <legend class="sr">種類</legend>
+          <div class="box-head" aria-hidden="true">種類</div>
+          <div class="box-body typelist" id="types"></div>
+        </fieldset>
 
-      <div class="field">
-        <span class="label">ジャンル
-          <label class="inline"><input type="checkbox" id="genreAnd"> すべて含む</label>
-        </span>
-        <div class="chips" id="genres"></div>
-      </div>
+        <fieldset class="box">
+          <legend class="sr">メンバー（出演）</legend>
+          <div class="box-head" aria-hidden="true">メンバー（出演）</div>
+          <div class="box-body">
+            <div class="checklist" id="members"></div>
+            <div class="subopts">
+              <label><input type="checkbox" id="memberAnd"> 全員出演</label>
+              <label><input type="checkbox" id="memberOnly"> 選んだメンバーだけが出演（完全一致）</label>
+              <label><input type="checkbox" id="ownerOnly"> そのメンバーのチャンネルの動画だけ</label>
+            </div>
+          </div>
+        </fieldset>
 
-      <button type="button" class="reset" id="reset">条件をクリア</button>
-    </aside>
+        <fieldset class="box" id="unitField">
+          <legend class="sr">ユニット</legend>
+          <div class="box-head" aria-hidden="true">ユニット</div>
+          <div class="box-body chips" id="units"></div>
+        </fieldset>
 
-    <section class="results">
-      <div class="toolbar" aria-label="表示条件">
-        <label class="tool">種類
-          <select id="type">
-            <option value="">すべて</option>
-            <option value="live">配信アーカイブ</option>
-            <option value="video">動画</option>
-            <option value="short">ショート</option>
-          </select>
-        </label>
-        <label class="tool">長さ
-          <select id="len">
-            <option value="">すべて</option>
-            <option value="0-1800">〜30分</option>
-            <option value="1800-3600">30分〜1時間</option>
-            <option value="3600-7200">1〜2時間</option>
-            <option value="7200-">2時間〜</option>
-          </select>
-        </label>
-        <div class="tool date">配信日
-          <div class="daterow">
-            <input id="from" type="date" aria-label="開始日"><span>〜</span><input id="to" type="date" aria-label="終了日">
+        <fieldset class="box">
+          <legend class="sr">ジャンル</legend>
+          <div class="box-head" aria-hidden="true">ジャンル</div>
+          <div class="box-body">
+            <label class="andopt"><input type="checkbox" id="genreAnd"> 選んだジャンルをすべて含む</label>
+            <div class="checklist" id="genres"></div>
+            <button type="button" class="linkbtn" id="genreMore" hidden></button>
+          </div>
+        </fieldset>
+
+        <fieldset class="box">
+          <legend class="sr">長さ・配信日</legend>
+          <div class="box-head" aria-hidden="true">長さ・配信日</div>
+          <div class="box-body stack">
+            <label class="fieldlabel">長さ
+              <select id="len">
+                <option value="">指定なし</option>
+                <option value="0-1800">〜30分</option>
+                <option value="1800-3600">30分〜1時間</option>
+                <option value="3600-7200">1〜2時間</option>
+                <option value="7200-">2時間〜</option>
+              </select>
+            </label>
+            <div class="fieldlabel">配信日
+              <div class="daterow">
+                <input id="from" type="date" aria-label="開始日"><span>〜</span><input id="to" type="date" aria-label="終了日">
+              </div>
+            </div>
             <div class="quick" id="quick">
               <button type="button" data-range="7">1週間</button>
               <button type="button" data-range="30">1か月</button>
@@ -79,27 +122,18 @@
               <button type="button" data-range="0">指定なし</button>
             </div>
           </div>
-        </div>
+        </fieldset>
       </div>
-      <div class="results-bar">
-        <p id="count"></p>
-        <label class="sortbox">並び順
-          <select id="sort">
-            <option value="new">新しい順</option>
-            <option value="old">古い順</option>
-            <option value="long">長い順</option>
-            <option value="short">短い順</option>
-          </select>
-        </label>
+
+      <div class="filters-foot sp-only">
+        <button type="button" class="btn" id="resetSp">クリア</button>
+        <button type="button" class="btn primary" id="filterDone">表示する</button>
       </div>
-      <nav class="pager" id="pagerTop" aria-label="ページ"></nav>
-      <ul class="grid" id="list"></ul>
-      <nav class="pager" id="pagerBottom" aria-label="ページ"></nav>
-      <p class="empty" id="empty" hidden>条件に合うアーカイブがありません。</p>
-    </section>
+    </aside>
   </main>
 
   <footer class="site-footer">
+    <p class="updated-foot" id="updatedFoot"></p>
     当サイトは Palette Project の非公式ファンサイトです。動画情報は YouTube Data API を利用して取得しています。
     <a id="reviewLink" href="review.html" hidden>確認モード</a>
   </footer>

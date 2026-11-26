@@ -18,6 +18,13 @@ Palette Project（パレプロ）の配信アーカイブを検索できる**非
 - ユーザーは普段 GitHub Desktop で **Commit → Pull origin → Push origin** の順に操作している
 - 画面の操作はクリックが基本（キーボードショートカットは補助）
 
+## デザイン（DESIGN.md に従う）
+
+- **検索サイト・確認モードの見た目を変えるときは、必ず先に `DESIGN.md` を読み、そのルールに従う**（色は `:root` の変数、文字の大きさ・余白・角丸は決まった値だけ）
+- 変更後は `DESIGN.md` の「6. 変更時のチェックリスト」で確認してから報告する
+- ルールに合わない変更が必要なときは、勝手に例外を作らずユーザーに相談し、決まったら `DESIGN.md` も更新する
+- 参考サイトのスクリーンショットはリポジトリの外（`..\palepro-design-refs\`）に置いている。他サイトの画像なのでリポジトリには入れない
+
 ## よく使うコマンド
 
 ```bash
@@ -46,6 +53,7 @@ GitHub Actions「update-archives」（3時間ごと／push 時／手動）
 ## フォルダ構成
 
 ```
+DESIGN.md           画面のデザインルール（参考サイト10件の分析つき）
 config/
   channels.json     チャンネル（key・名前・色・@ハンドル）。並び順＝サイトのメンバー並び順
   genres.xlsx       ユーザーが編集する管理用 Excel（ジャンル・出演・ユニット・種類・確認済）
@@ -61,8 +69,8 @@ scripts/
 tools/              Python + openpyxl。Excel を書式ごと扱うためのツール
   append_xlsx.py / import_site_edits.py / add_cast_columns.py / export_xlsx.py
 public/
-  index.html app.js style.css            検索サイト
-  review.html review.js review.css       確認モード
+  index.html app.js search.css           検索サイト（B案）
+  review.html review.js style.css review.css   確認モード（style.css は確認モード用に旧デザインのまま）
   data/archives.js, review-data.js, desc/d0〜15.js   生成物（.gitignore 済み）
 .github/workflows/update.yml             自動更新（build / deploy の2ジョブ）
 ```
@@ -117,9 +125,13 @@ public/
 
 ## 検索サイト（index.html）
 
-- 左欄：キーワード、メンバー（出演）＋「全員出演」「選んだメンバーだけが出演（完全一致）」「そのメンバーのチャンネルの動画だけ」、ユニット、ジャンル（「すべて含む」）
-- 上部：種類、長さ、配信日（日付2つ＋1週間/1か月/1年/指定なし）。並び順は件数表示の右
-- 1ページ60件、ページ番号。条件はすべて URL クエリに保持（共有・戻る対応）
+- **B案（Steam 型）のデザイン**（2026-11-26 反映）。見た目は `search.css`（確認モードの `style.css` とは別）
+- 暗いヘッダー：サイト名＋キーワード検索＋最終更新、下にメンバー8色の線
+- 左：結果（件数・並び順・「リスト／カード」切り替え → 一覧 → ページ番号）。最初はリスト、`view=card` でカード
+- 右：絞り込み欄（種類〈件数つき〉、メンバー（出演）＋「全員出演」「選んだメンバーだけが出演（完全一致）」「そのメンバーのチャンネルの動画だけ」、ユニット、ジャンル（「すべて含む」・最初は10件で「すべて表示」）、長さ・配信日（日付2つ＋1週間/1か月/1年/指定なし））
+- スマホ（860px 以下）：リストだけ。「絞り込み」ボタンで全画面の絞り込みを開き、下の「〇件を表示」で閉じる。ページは「前へ / 次へ」
+- 1ページ60件。条件はすべて URL クエリに保持（共有・戻る対応）
+- 変更前のバックアップ：リポジトリの外 `..\palepro-backup\2026-11-26_B案反映前\`、Git のタグ `before-B-design`（ローカルのみ）
 - 確認モードの設定を保存したブラウザだけ、フッターに「確認モード」リンク
 
 ## 確認モード（review.html）
