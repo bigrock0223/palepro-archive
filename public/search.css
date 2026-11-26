@@ -105,6 +105,9 @@ select, input[type=date] {
 .title { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.45; }
 .title a { color: inherit; text-decoration: none; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
 .title a:hover { color: var(--accent-ink); text-decoration: underline; }
+.chline { display: flex; align-items: center; gap: 8px; font-size: 12px; min-width: 0; }
+.chline .lbl { color: var(--muted); flex: none; }
+.chline .who { display: inline-flex; align-items: center; gap: 4px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .castline { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 12px; }
 .castline .lbl { color: var(--muted); }
 .castline .cast, .castline .unit { display: inline-flex; align-items: center; gap: 4px; border: none; background: none; padding: 0; color: var(--ink); font-size: 12px; }

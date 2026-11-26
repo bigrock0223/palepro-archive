@@ -116,7 +116,7 @@
   const num = (n) => n.toLocaleString();
 
   // 1件分。リスト・カードとも同じ中身で、見た目だけ CSS で切り替える
-  // 並び：サムネイル → タイトル → 出演者 → 種類・日付 → タグ（リストのパソコン表示では種類・日付は右端）
+  // 並び：サムネイル → タイトル → チャンネル → 出演者 → 種類・日付 → タグ（リストのパソコン表示では種類・日付は右端）
   function item(v) {
     const ch = chMap[v.c] || { name: v.c, color: '#999' };
     const url = `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}`;
@@ -132,6 +132,7 @@
       <a class="thumb" href="${url}" target="_blank" rel="noopener" style="${chStyle(ch)}" tabindex="-1" aria-hidden="true">${thumb}<span class="dur">${fmtDur(v.d)}</span></a>
       <div class="body">
         <p class="title"><a href="${url}" target="_blank" rel="noopener" title="${esc(v.t)}">${esc(v.t)}</a></p>
+        <div class="chline"><span class="lbl">チャンネル</span><span class="who" style="${chStyle(ch)}"><span class="dot"></span>${esc(ch.name)}</span></div>
         ${castLine(v)}
         <div class="sub"><span class="ty">${ty}</span><span aria-hidden="true">·</span><span>${v.label}</span><span class="sr">長さ ${fmtDur(v.d)}</span></div>
         ${tags ? `<div class="tags">${tags}</div>` : ''}
@@ -140,11 +141,10 @@
     </li>`;
   }
 
-  // 出演者とユニットの表示（例: 出演 ●クララ ●ハノン  [Sputrip]）。公式チャンネルは先頭に「公式」
-  const shortName = (c) => (c.key === 'official' ? '公式' : c.name.replace(/^(暁月|七海|常磐|藤宮|江波|鬼多見|香鳴|夏渚)/, ''));
+  // 出演者とユニットの表示（例: 出演 ●クララ ●ハノン  [Sputrip]）。チャンネルは別の行（item の .chline）
+  const shortName = (c) => c.name.replace(/^(暁月|七海|常磐|藤宮|江波|鬼多見|香鳴|夏渚)/, '');
   function castLine(v) {
-    const keys = v.c === 'official' ? ['official', ...v.p] : (v.p.length ? v.p : [v.c]);
-    const ps = keys.map((k) => chMap[k]).filter(Boolean)
+    const ps = v.p.map((k) => chMap[k]).filter(Boolean)
       .map((c) => `<button type="button" class="cast" data-member="${c.key}" style="${chStyle(c)}" title="${esc(c.name)}で絞り込む"><span class="dot"></span>${esc(shortName(c))}</button>`).join('');
     const us = v.u.map((u) => `<button type="button" class="unit" data-unit="${esc(u)}" title="${esc(u)}で絞り込む">${esc(u)}</button>`).join('');
     if (!ps && !us) return '';
